@@ -12,6 +12,8 @@ public class FilePathValidatorImpl implements FilePathValidator {
 
     private static final Logger logger = LogManager.getLogger();
     private static final FilePathValidatorImpl instance = new FilePathValidatorImpl();
+    public static final String WINDOWS_DIRECTORY_SEPARATOR = "\\";
+    public static final String UNIX_DIRECTORY_SEPARATOR = "/";
 
     private FilePathValidatorImpl() {
 
@@ -26,27 +28,25 @@ public class FilePathValidatorImpl implements FilePathValidator {
 
         boolean isValidFilePath = false;
 
-        if (filepath == null) {
-            logger.log(Level.INFO, "The provided file path is null.");
-        } else {
-            filepath = filepath.replace("\\", "/");
+        if (filepath != null) {
+            filepath = filepath.replace(WINDOWS_DIRECTORY_SEPARATOR, UNIX_DIRECTORY_SEPARATOR);
             URL dataFileUrl = getClass().getClassLoader().getResource(filepath);
-            File dataFile;
-            try {
-                dataFile = new File(dataFileUrl.getFile());
-            } catch (NullPointerException nullPointerException) {//TODO should use other exception
+            if (dataFileUrl != null) {
+                File dataFile = new File(dataFileUrl.getFile());
+                if (dataFile.length() > 0) {
+                    logger.log(Level.DEBUG, "The file path \"{}\" is correct and " +
+                            "the file is not empty.", dataFile);
+                    isValidFilePath = true;
+                } else {
+                    logger.log(Level.INFO, "The file for the file path \"{}\" " +
+                            "is empty", dataFile);
+                }
+            } else {
                 logger.log(Level.DEBUG, "The file for the file path \"{}\"" +
                         " is not exist.", filepath);
-                return isValidFilePath;
             }
-            if (dataFile.length() > 0) {
-                logger.log(Level.DEBUG, "The file path \"{}\" is correct and " +
-                        "the file is not empty.", dataFile);
-                isValidFilePath = true;
-            } else {
-                logger.log(Level.INFO, "The file for the file path \"{}\" " +
-                        "has size 0.", dataFile);
-            }
+        } else {
+            logger.log(Level.INFO, "The provided file path is null.");
         }
         return isValidFilePath;
     }

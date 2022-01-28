@@ -10,18 +10,17 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
-class ReaderFromFileImplTest {
+class DatabaseReaderFromFileImplTest {
 
     static final String TEST_FILE_PATH = "data\\test_data_arrays.txt";
     static final String TEST_DEFAULT_FILE_PATH = "data\\test_default_data_arrays.txt";
     static final String TEST_NOT_EXIST_FILE_PATH = "data\\test_not_exist_data_arrays.txt";
-    static ReaderFromFileImpl readerFromFile = ReaderFromFileImpl.getInstance();
+    static DataBaseReaderFromFileImpl readerFromFile = DataBaseReaderFromFileImpl.getInstance();
     static List<String> expectedStringList;
     static List<String> actualStringList;
 
     @AfterAll
-    static void tearDown() {
+    static void tearDownClass() {
         readerFromFile = null;
     }
 
@@ -32,7 +31,7 @@ class ReaderFromFileImplTest {
     }
 
     @Test
-    void readStringListFromProvidedValidFileWithDefaultFileUsingIsFalseTest()
+    public void readStringListFromProvidedValidFileWithDefaultFileUsingIsFalseTest()
             throws ProjectException {
 
         actualStringList = readerFromFile.readListStringFromFile(TEST_FILE_PATH, false);
@@ -42,7 +41,7 @@ class ReaderFromFileImplTest {
     }
 
     @Test
-    void readStringListFromProvidedValidFileWithDefaultFileUsingIsTrueTest() throws ProjectException {
+    public void readStringListFromProvidedValidFileWithDefaultFileUsingIsTrueTest() throws ProjectException {
 
         actualStringList = readerFromFile.readListStringFromFile(TEST_FILE_PATH, true);
         expectedStringList.add("1 -1 56");
@@ -51,7 +50,7 @@ class ReaderFromFileImplTest {
     }
 
     @Test
-    void readStringListFromNullProvidedFileWithDefaultFileUsingIsFalseTest(){
+    public void readStringListFromNullProvidedFileWithDefaultFileUsingIsFalseTest(){
 
         readerFromFile.setDefaultFilePath(TEST_DEFAULT_FILE_PATH);
         assertThrowsExactly(RuntimeException.class,
@@ -59,7 +58,7 @@ class ReaderFromFileImplTest {
     }
 
     @Test
-    void readStringListFromNullProvidedFileWithDefaultFileUsingIsTrueTest() throws ProjectException {
+    public void readStringListFromNullProvidedFileWithDefaultFileUsingIsTrueTest() throws ProjectException {
 
         expectedStringList.add("5 -5 0");
         expectedStringList.add("3 1 3");
@@ -70,7 +69,7 @@ class ReaderFromFileImplTest {
     }
 
     @Test
-    void readStringListFromNotExistProvidedFileWithDefaultFileUsingIsFalseTest(){
+    public void readStringListFromNotExistProvidedFileWithDefaultFileUsingIsFalseTest(){
 
         readerFromFile.setDefaultFilePath(TEST_DEFAULT_FILE_PATH);
         assertThrowsExactly(RuntimeException.class,
@@ -78,7 +77,7 @@ class ReaderFromFileImplTest {
     }
 
     @Test
-    void readStringListFromNotExistProvidedFileWithDefaultFileUsingIsTrueTest() throws ProjectException {
+    public void readStringListFromNotExistProvidedFileWithDefaultFileUsingIsTrueTest() throws ProjectException {
 
         expectedStringList.add("5 -5 0");
         expectedStringList.add("3 1 3");
@@ -89,7 +88,7 @@ class ReaderFromFileImplTest {
     }
 
     @Test
-    void readStringListFromNotExistProvidedFileWithDefaultFileUsingIsTrueAndNullDefaultFileTest(){
+    public void readStringListFromNotExistProvidedFileWithDefaultFileUsingIsTrueAndNullDefaultFileTest(){
 
         readerFromFile.setDefaultFilePath(null);
         assertThrowsExactly(RuntimeException.class,
@@ -97,7 +96,7 @@ class ReaderFromFileImplTest {
     }
 
     @Test
-    void readStringListFromNullProvidedFileWithDefaultFileUsingIsTrueAndNotExistDefaultFileTest(){
+    public void readStringListFromNullProvidedFileWithDefaultFileUsingIsTrueAndNotExistDefaultFileTest(){
 
         readerFromFile.setDefaultFilePath(TEST_NOT_EXIST_FILE_PATH);
         assertThrowsExactly(RuntimeException.class,
