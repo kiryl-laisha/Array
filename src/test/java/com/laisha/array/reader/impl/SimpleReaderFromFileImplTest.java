@@ -61,7 +61,7 @@ public class SimpleReaderFromFileImplTest {
         } catch (ProjectException projectException) {
             actualExceptionMessage = projectException.getMessage();
         }
-        assertEquals(actualExceptionMessage, expectedExceptionMessage);
+        assertEquals(expectedExceptionMessage, actualExceptionMessage);
     }
 
     @Test
@@ -86,7 +86,7 @@ public class SimpleReaderFromFileImplTest {
         } catch (ProjectException projectException) {
             actualExceptionMessage = projectException.getMessage();
         }
-        assertEquals(actualExceptionMessage, expectedExceptionMessage);
+        assertEquals(expectedExceptionMessage, actualExceptionMessage);
     }
 
     @Test
@@ -112,7 +112,7 @@ public class SimpleReaderFromFileImplTest {
         } catch (ProjectException projectException) {
             actualExceptionMessage = projectException.getMessage();
         }
-        assertEquals(actualExceptionMessage, expectedExceptionMessage);
+        assertEquals(expectedExceptionMessage, actualExceptionMessage);
     }
 
     @Test
@@ -127,6 +127,6 @@ public class SimpleReaderFromFileImplTest {
         } catch (ProjectException projectException) {
             actualExceptionMessage = projectException.getMessage();
         }
-        assertEquals(actualExceptionMessage, expectedExceptionMessage);
+        assertEquals(expectedExceptionMessage, actualExceptionMessage);
     }
 }

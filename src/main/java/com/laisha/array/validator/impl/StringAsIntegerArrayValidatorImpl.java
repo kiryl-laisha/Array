@@ -25,6 +25,7 @@ public class StringAsIntegerArrayValidatorImpl implements StringAsArrayValidator
     }
 
     public static StringAsIntegerArrayValidatorImpl getInstance() {
+
         return instance;
     }
 
