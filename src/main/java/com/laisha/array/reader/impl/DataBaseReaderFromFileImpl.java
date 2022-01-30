@@ -1,7 +1,7 @@
 package com.laisha.array.reader.impl;
 
-import com.laisha.array.reader.ReaderFromFile;
 import com.laisha.array.validator.impl.FilePathValidatorImpl;
+import com.laisha.array.reader.ReaderFromFile;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

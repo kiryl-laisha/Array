@@ -1,13 +1,7 @@
 package com.laisha.array.main;
 
-import com.laisha.array.exception.ProjectException;
-import com.laisha.array.reader.impl.DataBaseReaderFromFileImpl;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
     public static final Logger log = LogManager.getLogger();

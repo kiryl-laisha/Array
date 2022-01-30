@@ -2,16 +2,16 @@ package com.laisha.array.reader.impl;
 
 import com.laisha.array.exception.ProjectException;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertLinesMatch;
 
-public class SimpleReaderFromFileTest {
+public class SimpleReaderFromFileImplTest {
 
     static final String TEST_FILE_PATH = "data\\test_data_arrays.txt";
     static final String TEST_DEFAULT_FILE_PATH = "data\\test_default_data_arrays.txt";
@@ -61,7 +61,7 @@ public class SimpleReaderFromFileTest {
         } catch (ProjectException projectException) {
             actualExceptionMessage = projectException.getMessage();
         }
-        Assertions.assertEquals(actualExceptionMessage, expectedExceptionMessage);
+        assertEquals(actualExceptionMessage, expectedExceptionMessage);
     }
 
     @Test
@@ -86,7 +86,7 @@ public class SimpleReaderFromFileTest {
         } catch (ProjectException projectException) {
             actualExceptionMessage = projectException.getMessage();
         }
-        Assertions.assertEquals(actualExceptionMessage, expectedExceptionMessage);
+        assertEquals(actualExceptionMessage, expectedExceptionMessage);
     }
 
     @Test
@@ -112,7 +112,7 @@ public class SimpleReaderFromFileTest {
         } catch (ProjectException projectException) {
             actualExceptionMessage = projectException.getMessage();
         }
-        Assertions.assertEquals(actualExceptionMessage, expectedExceptionMessage);
+        assertEquals(actualExceptionMessage, expectedExceptionMessage);
     }
 
     @Test
@@ -127,6 +127,6 @@ public class SimpleReaderFromFileTest {
         } catch (ProjectException projectException) {
             actualExceptionMessage = projectException.getMessage();
         }
-        Assertions.assertEquals(actualExceptionMessage, expectedExceptionMessage);
+        assertEquals(actualExceptionMessage, expectedExceptionMessage);
     }
 }
