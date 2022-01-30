@@ -20,8 +20,8 @@ public class DataBaseReaderFromFileImpl implements ReaderFromFile {
 
     private static final Logger logger = LogManager.getLogger();
     private static final DataBaseReaderFromFileImpl instance = new DataBaseReaderFromFileImpl();
-    public static final String WINDOWS_DIRECTORY_SEPARATOR = "\\";
-    public static final String UNIX_DIRECTORY_SEPARATOR = "/";
+    private static final String WINDOWS_DIRECTORY_SEPARATOR = "\\";
+    private static final String UNIX_DIRECTORY_SEPARATOR = "/";
 
     private String defaultFilePath = "data/default_data_arrays.txt.";
 
@@ -37,13 +37,13 @@ public class DataBaseReaderFromFileImpl implements ReaderFromFile {
     @Override
     public List<String> readListStringFromFile(String filepath, boolean defaultFileUsing) {
 
-        logger.log(Level.DEBUG, "The file path is \"{}\" , a default file using is \"{}\",",
+        logger.log(Level.DEBUG, "The file path is \"{}\", a default file using is \"{}\".",
                 filepath, defaultFileUsing);
         FilePathValidatorImpl filePathValidator = FilePathValidatorImpl.getInstance();
         boolean isFilePathValid = filePathValidator.validateFilePath(filepath);
 
         if (!isFilePathValid) {
-            logger.log(Level.INFO, "The default file \"{}\" is used., ", defaultFilePath);
+            logger.log(Level.INFO, "The default file \"{}\" is used.", defaultFilePath);
             boolean isDefaultFilePathValid = filePathValidator.validateFilePath(defaultFilePath);
             if (defaultFileUsing && isDefaultFilePathValid) {
                 filepath = defaultFilePath;
@@ -62,10 +62,11 @@ public class DataBaseReaderFromFileImpl implements ReaderFromFile {
             logger.log(Level.FATAL, "Reading from the file for the file path "
                     + filepath + " is not available.\n" +
                     "Database cannot be loaded from files.", ioException);
-            throw new RuntimeException("Database cannot be loaded from files.", ioException);
+            throw new RuntimeException("Database cannot be loaded from these files.",
+                    ioException);
         }
         logger.log(Level.DEBUG, "The file for the file path \"{}\" has read successfully.\n" +
-                "\"{}\" string(s) have been read.", filepath, stringListFromFile.size());
+                "{} string(s) have been read.", filepath, stringListFromFile.size());
         return stringListFromFile;
     }
 

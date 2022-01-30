@@ -21,10 +21,10 @@ public class SimpleReaderFromFileImpl implements ReaderFromFile {
 
     private static final Logger logger = LogManager.getLogger();
     private static final SimpleReaderFromFileImpl instance = new SimpleReaderFromFileImpl();
-    public static final String WINDOWS_DIRECTORY_SEPARATOR = "\\";
-    public static final String UNIX_DIRECTORY_SEPARATOR = "/";
+    private static final String WINDOWS_DIRECTORY_SEPARATOR = "\\";
+    private static final String UNIX_DIRECTORY_SEPARATOR = "/";
 
-    private String defaultFilePath = "data/default_data_arrays.txt.";
+    private String defaultFilePath = "data/default_data_strings.txt.";
 
     private SimpleReaderFromFileImpl() {
 
@@ -39,18 +39,23 @@ public class SimpleReaderFromFileImpl implements ReaderFromFile {
     public List<String> readListStringFromFile(String filepath, boolean defaultFileUsing)
             throws ProjectException {
 
-        logger.log(Level.DEBUG, "The file path is \"{}\" , a default file using is \"{}\",",
+        logger.log(Level.DEBUG, "The file path is \"{}\", a default file using is \"{}\".",
                 filepath, defaultFileUsing);
         FilePathValidatorImpl filePathValidator = FilePathValidatorImpl.getInstance();
         boolean isFilePathValid = filePathValidator.validateFilePath(filepath);
 
         if (!isFilePathValid) {
-            logger.log(Level.INFO, "The default file \"{}\" is used., ", defaultFilePath);
-            boolean isDefaultFilePathValid = filePathValidator.validateFilePath(defaultFilePath);
-            if (defaultFileUsing && isDefaultFilePathValid) {
-                filepath = defaultFilePath;
+            if (defaultFileUsing) {
+                logger.log(Level.INFO, "The default file \"{}\" is used.", defaultFilePath);
+                if (filePathValidator.validateFilePath(defaultFilePath)) {
+                    filepath = defaultFilePath;
+                } else {
+                    throw new ProjectException("Reading from the files (both provided and default) " +
+                            "is not possible.");
+                }
             } else {
-               throw new ProjectException("Reading from the files is not possible.");
+                throw new ProjectException("Reading from the file for the file path "
+                        + filepath + " is not available.");
             }
         }
         Path filePath = defineFilePath(filepath);
@@ -58,11 +63,11 @@ public class SimpleReaderFromFileImpl implements ReaderFromFile {
         try (Stream<String> stringStream = Files.newBufferedReader(filePath).lines()) {
             stringListFromFile = stringStream.collect(Collectors.toList());
         } catch (IOException ioException) {
-            throw new ProjectException("Reading from the file for the file path "
-                    + filepath + " is not available, ", ioException);
+            throw new ProjectException("Reading from the file for the file path \""
+                    + filepath + "\" is not available, ", ioException);
         }
         logger.log(Level.DEBUG, "The file for the file path \"{}\" has read successfully.\n" +
-                "\"{}\" string(s) have been read.", filepath, stringListFromFile.size());
+                "{} string(s) have been read.", filepath, stringListFromFile.size());
         return stringListFromFile;
     }
 
