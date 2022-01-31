@@ -12,7 +12,6 @@ public class StringAsIntegerArrayValidatorImplTest {
     private static final StringAsIntegerArrayValidatorImpl stringAsIntegerArrayValidator =
             StringAsIntegerArrayValidatorImpl.getInstance();
 
-
     @ParameterizedTest
     @ValueSource(strings = {"+5 2147483647 -1230 45321 23123123 -77777",
                             "  2        21 -130    45321 23123 -77   7 \t\r\n   "})
@@ -37,7 +36,7 @@ public class StringAsIntegerArrayValidatorImplTest {
 
     @ParameterizedTest
     @NullAndEmptySource
-    public void validateNullAsIntegerArray(String stringAsArray) {
+    public void validateNullAndEmptyStringAsIntegerArray(String stringAsArray) {
 
         boolean isValidStringAsIntegerArray =
                 stringAsIntegerArrayValidator.validateStringAsArray(stringAsArray);

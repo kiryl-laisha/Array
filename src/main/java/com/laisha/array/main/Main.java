@@ -20,7 +20,7 @@ public class Main {
 
 //        StringToIntegerArrayParserImpl stringToIntegerArrayParser = new StringToIntegerArrayParserImpl();
 //        int[] array = stringToIntegerArrayParser.parseStringToIntegerArray(string);
-//        CustomIntegerArray intArray = new CustomIntegerArray();
+//        UserIntegerArray intArray = new UserIntegerArray();
 //        intArray.setIntegerArray(array);
 //        ArrayActionImpl arrayActionImpl = new ArrayActionImpl();
 //        int minElement = arrayActionImpl.findMinElement(intArray);
