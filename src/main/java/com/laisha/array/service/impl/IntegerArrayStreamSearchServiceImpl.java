@@ -7,17 +7,19 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class IntegerArraySearchServiceImpl implements IntegerArraySearchService {
+import java.util.Arrays;
+
+public class IntegerArrayStreamSearchServiceImpl implements IntegerArraySearchService {
 
     private static final Logger logger = LogManager.getLogger();
-    private static final IntegerArraySearchServiceImpl instance =
-            new IntegerArraySearchServiceImpl();
+    private static final IntegerArrayStreamSearchServiceImpl instance =
+            new IntegerArrayStreamSearchServiceImpl();
 
-    private IntegerArraySearchServiceImpl() {
+    private IntegerArrayStreamSearchServiceImpl() {
 
     }
 
-    public static IntegerArraySearchServiceImpl getInstance() {
+    public static IntegerArrayStreamSearchServiceImpl getInstance() {
 
         return instance;
     }
@@ -27,12 +29,10 @@ public class IntegerArraySearchServiceImpl implements IntegerArraySearchService 
             throws ProjectException {
 
         int[] integerArray = getUserIntegerArray(userIntegerArray);
-        int minimumElement = Integer.MAX_VALUE;
-        for (int element : integerArray) {
-            if (element < minimumElement) {
-                minimumElement = element;
-            }
-        }
+        int minimumElement =Arrays
+                .stream(integerArray)
+                .min()
+                .getAsInt();
         logger.log(Level.DEBUG, "Found minimum element = {}.", minimumElement);
         return minimumElement;
     }
@@ -42,12 +42,10 @@ public class IntegerArraySearchServiceImpl implements IntegerArraySearchService 
             throws ProjectException {
 
         int[] integerArray = getUserIntegerArray(userIntegerArray);
-        int maximumElement = Integer.MIN_VALUE;
-        for (int element : integerArray) {
-            if (element > maximumElement) {
-                maximumElement = element;
-            }
-        }
+        int maximumElement = Arrays
+                .stream(integerArray)
+                .max()
+                .getAsInt();
         logger.log(Level.DEBUG, "Found maximum element = {}.", maximumElement);
         return maximumElement;
     }
@@ -57,11 +55,10 @@ public class IntegerArraySearchServiceImpl implements IntegerArraySearchService 
             throws ProjectException {
 
         int[] integerArray = getUserIntegerArray(userIntegerArray);
-        double totalSum = 0;
-        for (int element : integerArray) {
-            totalSum = totalSum + element;
-        }
-        double averageValue = totalSum / integerArray.length;
+        double averageValue = Arrays
+                .stream(integerArray)
+                .average()
+                .getAsDouble();
         logger.log(Level.DEBUG, "Calculated average value = {}.", averageValue);
         return averageValue;
     }
@@ -71,25 +68,23 @@ public class IntegerArraySearchServiceImpl implements IntegerArraySearchService 
             throws ProjectException {
 
         int[] integerArray = getUserIntegerArray(userIntegerArray);
-        long totalSum = 0;
-        for (int element : integerArray) {
-            totalSum = totalSum + element;
-        }
+        long totalSum = Arrays
+                .stream(integerArray)
+                .mapToLong(x -> x)
+                .sum();
         logger.log(Level.DEBUG, "Calculated total sum = {}.", totalSum);
         return totalSum;
     }
 
     @Override
     public int countNegativeElementQuantity(UserIntegerArray userIntegerArray)
-            throws ProjectException{
+            throws ProjectException {
 
         int[] integerArray = getUserIntegerArray(userIntegerArray);
-        int elementQuantity = 0;
-        for (int element : integerArray) {
-            if (element < 0) {
-                elementQuantity++;
-            }
-        }
+        int elementQuantity = (int) Arrays
+                .stream(integerArray)
+                .filter(x -> x < 0)
+                .count();
         logger.log(Level.DEBUG, "Counted quantity of negative " +
                 "array elements = {}.", elementQuantity);
         return elementQuantity;
@@ -97,18 +92,16 @@ public class IntegerArraySearchServiceImpl implements IntegerArraySearchService 
 
     @Override
     public int countNotNegativeElementQuantity(UserIntegerArray userIntegerArray)
-              throws ProjectException{
+            throws ProjectException {
 
-            int[] integerArray = getUserIntegerArray(userIntegerArray);
-            int elementQuantity = 0;
-            for (int element : integerArray) {
-                if (element >= 0) {
-                    elementQuantity++;
-                }
-            }
-            logger.log(Level.DEBUG, "Counted quantity of not negative " +
-                    "array elements = {}.", elementQuantity);
-            return elementQuantity;
+        int[] integerArray = getUserIntegerArray(userIntegerArray);
+        int elementQuantity = (int) Arrays
+                .stream(integerArray)
+                .filter(x -> x >= 0)
+                .count();
+        logger.log(Level.DEBUG, "Counted quantity of not negative " +
+                "array elements = {}.", elementQuantity);
+        return elementQuantity;
     }
 
     private int[] getUserIntegerArray(UserIntegerArray userIntegerArray)

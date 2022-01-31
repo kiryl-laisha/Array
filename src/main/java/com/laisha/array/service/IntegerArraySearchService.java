@@ -5,15 +5,21 @@ import com.laisha.array.exception.ProjectException;
 
 public interface IntegerArraySearchService {
 
-    int searchMinElement(UserIntegerArray integerArray) throws ProjectException;
+    int searchMinElement(UserIntegerArray integerArray)
+            throws ProjectException;
 
-    int searchMaxElement(UserIntegerArray integerArray) throws ProjectException;
+    int searchMaxElement(UserIntegerArray integerArray)
+            throws ProjectException;
 
-    double findAverageElement(UserIntegerArray integerArray);
+    double calculateAverageValue(UserIntegerArray integerArray)
+            throws ProjectException;
 
-    int calculateSumOfArrayElements(UserIntegerArray integerArray);
+    long calculateSumOfArrayElements(UserIntegerArray integerArray)
+            throws ProjectException;
 
-    int findQuantityOfNegativeElement(UserIntegerArray integerArray);
+    int countNegativeElementQuantity(UserIntegerArray integerArray)
+            throws ProjectException;
 
-    int findQuantityOfPositiveElement(UserIntegerArray integerArray);
+    int countNotNegativeElementQuantity(UserIntegerArray integerArray)
+            throws ProjectException;
 }
