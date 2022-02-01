@@ -14,7 +14,6 @@ public class IntegerArraySearchServiceImpl implements IntegerArraySearchService 
             new IntegerArraySearchServiceImpl();
 
     private IntegerArraySearchServiceImpl() {
-
     }
 
     public static IntegerArraySearchServiceImpl getInstance() {
@@ -26,7 +25,7 @@ public class IntegerArraySearchServiceImpl implements IntegerArraySearchService 
     public int searchMinElement(UserIntegerArray userIntegerArray)
             throws ProjectException {
 
-        int[] integerArray = getUserIntegerArray(userIntegerArray);
+        int[] integerArray = getIntegerArrayWithCheckByNullAndEmpty(userIntegerArray);
         int minimumElement = Integer.MAX_VALUE;
         for (int element : integerArray) {
             if (element < minimumElement) {
@@ -41,7 +40,7 @@ public class IntegerArraySearchServiceImpl implements IntegerArraySearchService 
     public int searchMaxElement(UserIntegerArray userIntegerArray)
             throws ProjectException {
 
-        int[] integerArray = getUserIntegerArray(userIntegerArray);
+        int[] integerArray = getIntegerArrayWithCheckByNullAndEmpty(userIntegerArray);
         int maximumElement = Integer.MIN_VALUE;
         for (int element : integerArray) {
             if (element > maximumElement) {
@@ -56,7 +55,7 @@ public class IntegerArraySearchServiceImpl implements IntegerArraySearchService 
     public double calculateAverageValue(UserIntegerArray userIntegerArray)
             throws ProjectException {
 
-        int[] integerArray = getUserIntegerArray(userIntegerArray);
+        int[] integerArray = getIntegerArrayWithCheckByNullAndEmpty(userIntegerArray);
         double totalSum = 0;
         for (int element : integerArray) {
             totalSum = totalSum + element;
@@ -70,7 +69,7 @@ public class IntegerArraySearchServiceImpl implements IntegerArraySearchService 
     public long calculateSumOfArrayElements(UserIntegerArray userIntegerArray)
             throws ProjectException {
 
-        int[] integerArray = getUserIntegerArray(userIntegerArray);
+        int[] integerArray = getIntegerArrayWithCheckByNullAndEmpty(userIntegerArray);
         long totalSum = 0;
         for (int element : integerArray) {
             totalSum = totalSum + element;
@@ -81,9 +80,9 @@ public class IntegerArraySearchServiceImpl implements IntegerArraySearchService 
 
     @Override
     public int countNegativeElementQuantity(UserIntegerArray userIntegerArray)
-            throws ProjectException{
+            throws ProjectException {
 
-        int[] integerArray = getUserIntegerArray(userIntegerArray);
+        int[] integerArray = getIntegerArrayWithCheckByNullAndEmpty(userIntegerArray);
         int elementQuantity = 0;
         for (int element : integerArray) {
             if (element < 0) {
@@ -97,21 +96,21 @@ public class IntegerArraySearchServiceImpl implements IntegerArraySearchService 
 
     @Override
     public int countNotNegativeElementQuantity(UserIntegerArray userIntegerArray)
-              throws ProjectException{
+            throws ProjectException {
 
-            int[] integerArray = getUserIntegerArray(userIntegerArray);
-            int elementQuantity = 0;
-            for (int element : integerArray) {
-                if (element >= 0) {
-                    elementQuantity++;
-                }
+        int[] integerArray = getIntegerArrayWithCheckByNullAndEmpty(userIntegerArray);
+        int elementQuantity = 0;
+        for (int element : integerArray) {
+            if (element >= 0) {
+                elementQuantity++;
             }
-            logger.log(Level.DEBUG, "Counted quantity of not negative " +
-                    "array elements = {}.", elementQuantity);
-            return elementQuantity;
+        }
+        logger.log(Level.DEBUG, "Counted quantity of not negative " +
+                "array elements = {}.", elementQuantity);
+        return elementQuantity;
     }
 
-    private int[] getUserIntegerArray(UserIntegerArray userIntegerArray)
+    private int[] getIntegerArrayWithCheckByNullAndEmpty(UserIntegerArray userIntegerArray)
             throws ProjectException {
 
         int[] integerArray;

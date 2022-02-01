@@ -24,10 +24,9 @@ public class SimpleReaderFromFileImpl implements ReaderFromFile {
     private static final String WINDOWS_DIRECTORY_SEPARATOR = "\\";
     private static final String UNIX_DIRECTORY_SEPARATOR = "/";
 
-    private String defaultFilePath = "data/default_data_strings.txt.";
+    private static String defaultFilePath = "data/default_data_strings.txt.";
 
     private SimpleReaderFromFileImpl() {
-
     }
 
     public static SimpleReaderFromFileImpl getInstance() {

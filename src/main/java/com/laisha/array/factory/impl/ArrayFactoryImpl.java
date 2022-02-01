@@ -9,7 +9,6 @@ public class ArrayFactoryImpl implements ArrayFactory {
     private static final ArrayFactoryImpl instance = new ArrayFactoryImpl();
 
     private ArrayFactoryImpl() {
-
     }
 
     public static ArrayFactoryImpl getInstance() {

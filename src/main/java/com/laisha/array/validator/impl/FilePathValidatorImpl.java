@@ -16,7 +16,6 @@ public class FilePathValidatorImpl implements FilePathValidator {
     public static final String UNIX_DIRECTORY_SEPARATOR = "/";
 
     private FilePathValidatorImpl() {
-
     }
 
     public static FilePathValidatorImpl getInstance() {

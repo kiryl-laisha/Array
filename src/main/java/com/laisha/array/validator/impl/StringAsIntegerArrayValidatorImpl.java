@@ -21,7 +21,6 @@ public class StringAsIntegerArrayValidatorImpl implements StringAsArrayValidator
             "(\\s+" + STRING_AS_INTEGER + ")*\\s*$";
 
     private StringAsIntegerArrayValidatorImpl() {
-
     }
 
     public static StringAsIntegerArrayValidatorImpl getInstance() {

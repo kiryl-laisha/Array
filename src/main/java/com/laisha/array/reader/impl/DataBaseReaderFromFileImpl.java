@@ -23,10 +23,9 @@ public class DataBaseReaderFromFileImpl implements ReaderFromFile {
     private static final String WINDOWS_DIRECTORY_SEPARATOR = "\\";
     private static final String UNIX_DIRECTORY_SEPARATOR = "/";
 
-    private String defaultFilePath = "data/default_data_arrays.txt.";
+    private static String defaultFilePath = "data/default_data_arrays.txt.";
 
     private DataBaseReaderFromFileImpl() {
-
     }
 
     public static DataBaseReaderFromFileImpl getInstance() {

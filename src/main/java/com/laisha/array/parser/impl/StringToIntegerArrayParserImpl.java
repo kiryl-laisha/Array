@@ -18,7 +18,6 @@ public class StringToIntegerArrayParserImpl implements StringToIntegerArrayParse
     private static final String ELEMENTS_DELIMITER = "\\s+";
 
     private StringToIntegerArrayParserImpl() {
-
     }
 
     public static StringToIntegerArrayParserImpl getInstance() {

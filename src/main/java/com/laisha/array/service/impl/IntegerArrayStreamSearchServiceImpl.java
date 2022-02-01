@@ -28,8 +28,8 @@ public class IntegerArrayStreamSearchServiceImpl implements IntegerArraySearchSe
     public int searchMinElement(UserIntegerArray userIntegerArray)
             throws ProjectException {
 
-        int[] integerArray = getUserIntegerArray(userIntegerArray);
-        int minimumElement =Arrays
+        int[] integerArray = getIntegerArrayWithCheckByNullAndEmpty(userIntegerArray);
+        int minimumElement = Arrays
                 .stream(integerArray)
                 .min()
                 .getAsInt();
@@ -41,7 +41,7 @@ public class IntegerArrayStreamSearchServiceImpl implements IntegerArraySearchSe
     public int searchMaxElement(UserIntegerArray userIntegerArray)
             throws ProjectException {
 
-        int[] integerArray = getUserIntegerArray(userIntegerArray);
+        int[] integerArray = getIntegerArrayWithCheckByNullAndEmpty(userIntegerArray);
         int maximumElement = Arrays
                 .stream(integerArray)
                 .max()
@@ -54,7 +54,7 @@ public class IntegerArrayStreamSearchServiceImpl implements IntegerArraySearchSe
     public double calculateAverageValue(UserIntegerArray userIntegerArray)
             throws ProjectException {
 
-        int[] integerArray = getUserIntegerArray(userIntegerArray);
+        int[] integerArray = getIntegerArrayWithCheckByNullAndEmpty(userIntegerArray);
         double averageValue = Arrays
                 .stream(integerArray)
                 .average()
@@ -67,7 +67,7 @@ public class IntegerArrayStreamSearchServiceImpl implements IntegerArraySearchSe
     public long calculateSumOfArrayElements(UserIntegerArray userIntegerArray)
             throws ProjectException {
 
-        int[] integerArray = getUserIntegerArray(userIntegerArray);
+        int[] integerArray = getIntegerArrayWithCheckByNullAndEmpty(userIntegerArray);
         long totalSum = Arrays
                 .stream(integerArray)
                 .mapToLong(x -> x)
@@ -80,7 +80,7 @@ public class IntegerArrayStreamSearchServiceImpl implements IntegerArraySearchSe
     public int countNegativeElementQuantity(UserIntegerArray userIntegerArray)
             throws ProjectException {
 
-        int[] integerArray = getUserIntegerArray(userIntegerArray);
+        int[] integerArray = getIntegerArrayWithCheckByNullAndEmpty(userIntegerArray);
         int elementQuantity = (int) Arrays
                 .stream(integerArray)
                 .filter(x -> x < 0)
@@ -94,7 +94,7 @@ public class IntegerArrayStreamSearchServiceImpl implements IntegerArraySearchSe
     public int countNotNegativeElementQuantity(UserIntegerArray userIntegerArray)
             throws ProjectException {
 
-        int[] integerArray = getUserIntegerArray(userIntegerArray);
+        int[] integerArray = getIntegerArrayWithCheckByNullAndEmpty(userIntegerArray);
         int elementQuantity = (int) Arrays
                 .stream(integerArray)
                 .filter(x -> x >= 0)
@@ -104,7 +104,7 @@ public class IntegerArrayStreamSearchServiceImpl implements IntegerArraySearchSe
         return elementQuantity;
     }
 
-    private int[] getUserIntegerArray(UserIntegerArray userIntegerArray)
+    private int[] getIntegerArrayWithCheckByNullAndEmpty(UserIntegerArray userIntegerArray)
             throws ProjectException {
 
         int[] integerArray;

@@ -16,7 +16,6 @@ public class UserIntegerArray {
     }
 
     public UserIntegerArray() {
-
     }
 
     public UserIntegerArray(int... integerArray) throws ProjectException {
@@ -86,9 +85,7 @@ public class UserIntegerArray {
             stringBuilder.append(i);
             stringBuilder.append("] = ");
             stringBuilder.append(integerArray[i]);
-            if (i == integerArray.length - 1) {
-                continue;
-            } else {
+            if (i != integerArray.length - 1) {
                 stringBuilder.append(", ");
             }
         }
