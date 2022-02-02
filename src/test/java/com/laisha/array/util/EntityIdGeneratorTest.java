@@ -12,7 +12,7 @@ class EntityIdGeneratorTest {
             "-4[\\da-fA-F]{3}-[8-9abAB][\\da-fA-F]{3}-[\\da-fA-F]{12}$";
 
     @RepeatedTest(10)
-    void generateUniqueEntityId() {
+    void generateEntityIdTest() {
 
         UUID entityId = EntityIdGenerator.generateEntityId();
         assertTrue(entityId.toString().matches(REGEX_STRING_AS_UUID));

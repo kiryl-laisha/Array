@@ -1,15 +1,20 @@
 package com.laisha.array.entity;
 
 import com.laisha.array.exception.ProjectException;
+import com.laisha.array.observer.IntegerArrayObserver;
+import com.laisha.array.observer.Observable;
 import com.laisha.array.util.EntityIdGenerator;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
-public class UserIntegerArray {
+public class UserIntegerArray implements Observable {
 
     private final UUID userIntegerArrayId;
     private int[] integerArray;
+    private List<IntegerArrayObserver> observers = new ArrayList<>();
 
     {
         userIntegerArrayId = EntityIdGenerator.generateEntityId();
@@ -24,7 +29,7 @@ public class UserIntegerArray {
             throw new ProjectException("The provided to constructor " +
                     "integer array is null.");
         }
-        this.integerArray = integerArray;
+        this.integerArray = Arrays.copyOf(integerArray, integerArray.length);
     }
 
     public int[] getUserIntegerArray() {
@@ -38,11 +43,54 @@ public class UserIntegerArray {
             throw new ProjectException("The provided integer array is null.");
         }
         this.integerArray = Arrays.copyOf(integerArray, integerArray.length);
+        notifyObservers();
     }
 
     public UUID getUserIntegerArrayId() {
 
         return userIntegerArrayId;
+    }
+
+    public void setIntegerArrayElement(int elementIndex, int elementValue)
+            throws ProjectException {
+
+        if (integerArray == null) {
+            throw new ProjectException("Integer array hasn't been initialized.");
+        }
+        if (integerArray.length == 0) {
+            throw new ProjectException("Integer array is degenerated. " +
+                    "Array element setting is not available.");
+        }
+        if (elementIndex < 0 || elementIndex >= integerArray.length) {
+            throw new ProjectException("Provided element index is out of array bounds. " +
+                    "Array element setting is not available.");
+        }
+        integerArray[elementIndex] = elementValue;
+        notifyObservers();
+    }
+
+    @Override
+    public void attach(IntegerArrayObserver integerArrayObserver) {
+        observers.add(integerArrayObserver);
+    }
+
+    @Override
+    public void detach(IntegerArrayObserver integerArrayObserver) {
+        observers.remove(integerArrayObserver);
+    }
+
+    @Override
+    public void notifyObservers() throws ProjectException {
+        if (!observers.isEmpty()) {
+            for (IntegerArrayObserver observer : observers) {
+                try {
+                    observer.changeElements(this);
+                } catch (ProjectException projectException) {
+                    throw new ProjectException("Method execution is not available",
+                            projectException);
+                }
+            }
+        }
     }
 
     @Override

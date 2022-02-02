@@ -3,6 +3,7 @@ package com.laisha.array.service.impl;
 import com.laisha.array.entity.UserIntegerArray;
 import com.laisha.array.exception.ProjectException;
 import com.laisha.array.factory.impl.ArrayFactoryImpl;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,9 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class IntegerArraySortServiceImplTest {
 
-    private static final IntegerArraySortServiceImpl integerArraySortService =
+    private static IntegerArraySortServiceImpl integerArraySortService =
             IntegerArraySortServiceImpl.getInstance();
-    private static final ArrayFactoryImpl arrayFactory = ArrayFactoryImpl.getInstance();
+    private static ArrayFactoryImpl arrayFactory = ArrayFactoryImpl.getInstance();
     UserIntegerArray userIntegerArray;
     UserIntegerArray otherUserIntegerArray;
 
@@ -23,8 +24,15 @@ public class IntegerArraySortServiceImplTest {
         otherUserIntegerArray = null;
     }
 
+    @AfterAll
+    static void tearDownClass() {
+
+        integerArraySortService = null;
+        arrayFactory = null;
+    }
+
     @Test
-    public void sortByBubbleSorting() {
+    public void sortByBubbleSortingTest() {
 
         int[] integerArray = new int[]{13, 6, -10, 100, -5};
         try {
@@ -40,7 +48,7 @@ public class IntegerArraySortServiceImplTest {
     }
 
     @Test
-    public void sortByBubbleSortingForOneElementArray() {
+    public void sortByBubbleSortingForOneElementArrayTest() {
 
         int[] expectedIntegerArray = new int[]{13};
         try {
@@ -55,7 +63,7 @@ public class IntegerArraySortServiceImplTest {
     }
 
     @Test
-    public void sortByBubbleSortingForNotInitializedArray() {
+    public void sortByBubbleSortingForNotInitializedArrayTest() {
 
         userIntegerArray = arrayFactory.createUserIntegerArray();
         String actualExceptionMessage = null;
@@ -70,7 +78,7 @@ public class IntegerArraySortServiceImplTest {
     }
 
     @Test
-    public void sortByBubbleSortingForDegeneratedArray() {
+    public void sortByBubbleSortingForDegeneratedArrayTest() {
 
         String actualExceptionMessage = null;
         try {
@@ -85,7 +93,7 @@ public class IntegerArraySortServiceImplTest {
     }
 
     @Test
-    public void sortByBubbleSortingAndCheckArrayCoping() {
+    public void sortByBubbleSortingAndCheckArrayCopyingTest() {
 
         UserIntegerArray otherUserIntegerArray = new UserIntegerArray();
         int[] integerArray = new int[]{13, 6, -10, 100, -5};
@@ -102,7 +110,7 @@ public class IntegerArraySortServiceImplTest {
     }
 
     @Test
-    public void sortBySelection() {
+    public void sortBySelectionTest() {
 
         int[] integerArray = new int[]{-33, 6, -10, 100, -105};
         try {
@@ -118,7 +126,7 @@ public class IntegerArraySortServiceImplTest {
     }
 
     @Test
-    public void sortBySelectionForOneElementArray() {
+    public void sortBySelectionForOneElementArrayTest() {
 
         int[] expectedIntegerArray = new int[]{9};
         try {
@@ -133,7 +141,7 @@ public class IntegerArraySortServiceImplTest {
     }
 
     @Test
-    public void sortBySelectionForNotInitializedArray() {
+    public void sortBySelectionForNotInitializedArrayTest() {
 
         userIntegerArray = arrayFactory.createUserIntegerArray();
         String actualExceptionMessage = null;
@@ -148,7 +156,7 @@ public class IntegerArraySortServiceImplTest {
     }
 
     @Test
-    public void sortBySelectionForDegeneratedArray() {
+    public void sortBySelectionForDegeneratedArrayTest() {
 
         String actualExceptionMessage = null;
         try {
@@ -163,7 +171,7 @@ public class IntegerArraySortServiceImplTest {
     }
 
     @Test
-    public void sortBySelectionAndCheckArrayCoping() {
+    public void sortBySelectionAndCheckArrayCopyingTest() {
 
         UserIntegerArray otherUserIntegerArray = new UserIntegerArray();
         int[] integerArray = new int[]{13, 6, -10, 100, -5};
@@ -180,7 +188,7 @@ public class IntegerArraySortServiceImplTest {
     }
 
     @Test
-    public void sortByInsertion() {
+    public void sortByInsertionTest() {
 
         int[] integerArray = new int[]{-10, 6, -33, 100, -15};
         try {
@@ -196,7 +204,7 @@ public class IntegerArraySortServiceImplTest {
     }
 
     @Test
-    public void sortByInsertionForOneElementArray() {
+    public void sortByInsertionForOneElementArrayTest() {
 
         int[] expectedIntegerArray = new int[]{9};
         try {
@@ -211,7 +219,7 @@ public class IntegerArraySortServiceImplTest {
     }
 
     @Test
-    public void sortByInsertionForNotInitializedArray() {
+    public void sortByInsertionForNotInitializedArrayTest() {
 
         userIntegerArray = arrayFactory.createUserIntegerArray();
         String actualExceptionMessage = null;
@@ -226,7 +234,7 @@ public class IntegerArraySortServiceImplTest {
     }
 
     @Test
-    public void sortByInsertionForDegeneratedArray() {
+    public void sortByInsertionForDegeneratedArrayTest() {
 
         String actualExceptionMessage = null;
         try {
@@ -241,7 +249,7 @@ public class IntegerArraySortServiceImplTest {
     }
 
     @Test
-    public void sortByInsertionAndCheckArrayCoping() {
+    public void sortByInsertionAndCheckArrayCopyingTest() {
 
         UserIntegerArray otherUserIntegerArray = new UserIntegerArray();
         int[] integerArray = new int[]{13, 6, -10, 100, -5};
@@ -258,7 +266,7 @@ public class IntegerArraySortServiceImplTest {
     }
 
     @Test
-    public void sortByStream() {
+    public void sortByStreamTest() {
 
         int[] integerArray = new int[]{10, 100, -13, 6, -15};
         try {
@@ -274,7 +282,7 @@ public class IntegerArraySortServiceImplTest {
     }
 
     @Test
-    public void sortByStreamForOneElementArray() {
+    public void sortByStreamForOneElementArrayTest() {
 
         int[] expectedIntegerArray = new int[]{9};
         try {
@@ -289,7 +297,7 @@ public class IntegerArraySortServiceImplTest {
     }
 
     @Test
-    public void sortByStreamForNotInitializedArray() {
+    public void sortByStreamForNotInitializedArrayTest() {
 
         userIntegerArray = arrayFactory.createUserIntegerArray();
         String actualExceptionMessage = null;
@@ -304,7 +312,7 @@ public class IntegerArraySortServiceImplTest {
     }
 
     @Test
-    public void sortByStreamForDegeneratedArray() {
+    public void sortByStreamForDegeneratedArrayTest() {
 
         String actualExceptionMessage = null;
         try {
@@ -319,7 +327,7 @@ public class IntegerArraySortServiceImplTest {
     }
 
     @Test
-    public void sortByStreamAndCheckArrayCoping() {
+    public void sortByStreamAndCheckArrayCopyingTest() {
 
         UserIntegerArray otherUserIntegerArray = new UserIntegerArray();
         int[] integerArray = new int[]{13, 6, -10, 100, -5};

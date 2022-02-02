@@ -3,6 +3,7 @@ package com.laisha.array.service.impl;
 import com.laisha.array.entity.UserIntegerArray;
 import com.laisha.array.exception.ProjectException;
 import com.laisha.array.factory.impl.ArrayFactoryImpl;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,25 +11,33 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class IntegerArrayStreamSearchServiceImplTest {
 
-    static IntegerArrayStreamSearchServiceImpl integerArraySearchService =
+    static IntegerArrayStreamSearchServiceImpl integerArrayStreamSearchService =
             IntegerArrayStreamSearchServiceImpl.getInstance();
     static ArrayFactoryImpl arrayFactory = ArrayFactoryImpl.getInstance();
     static UserIntegerArray userIntegerArray;
 
     @AfterEach
     void tearDown() {
+
         userIntegerArray = null;
     }
 
+    @AfterAll
+    static void tearDownClass() {
+
+        integerArrayStreamSearchService = null;
+        arrayFactory = null;
+    }
+
     @Test
-    public void searchMinElement() {
+    public void searchMinElementTest() {
 
         int[] integerArray = new int[]{-5, 0, 5, -20, 77};
         int actualMinimumElement = 0;
         try {
             userIntegerArray = arrayFactory.createUserIntegerArray(integerArray);
             actualMinimumElement =
-                    integerArraySearchService.searchMinElement(userIntegerArray);
+                    integerArrayStreamSearchService.searchMinElement(userIntegerArray);
         } catch (ProjectException projectException) {
             projectException.printStackTrace();
         }
@@ -37,14 +46,14 @@ public class IntegerArrayStreamSearchServiceImplTest {
     }
 
     @Test
-    public void searchMinElementForOneElementArray() {
+    public void searchMinElementForOneElementArrayTest() {
 
         int[] integerArray = new int[]{-77};
         int actualMinimumElement = 0;
         try {
             userIntegerArray = arrayFactory.createUserIntegerArray(integerArray);
             actualMinimumElement =
-                    integerArraySearchService.searchMinElement(userIntegerArray);
+                    integerArrayStreamSearchService.searchMinElement(userIntegerArray);
         } catch (ProjectException projectException) {
             projectException.printStackTrace();
         }
@@ -53,12 +62,12 @@ public class IntegerArrayStreamSearchServiceImplTest {
     }
 
     @Test
-    public void searchMinElementForNotInitializedArray() {
+    public void searchMinElementForNotInitializedArrayTest() {
 
         userIntegerArray = arrayFactory.createUserIntegerArray();
         String actualExceptionMessage = null;
         try {
-            integerArraySearchService.searchMinElement(userIntegerArray);
+            integerArrayStreamSearchService.searchMinElement(userIntegerArray);
         } catch (ProjectException projectException) {
             actualExceptionMessage = projectException.getMessage();
         }
@@ -68,12 +77,12 @@ public class IntegerArrayStreamSearchServiceImplTest {
     }
 
     @Test
-    public void searchMinElementForDegeneratedArray() {
+    public void searchMinElementForDegeneratedArrayTest() {
 
         String actualExceptionMessage = null;
         try {
             userIntegerArray = arrayFactory.createUserIntegerArray(new int[]{});
-            integerArraySearchService.searchMinElement(userIntegerArray);
+            integerArrayStreamSearchService.searchMinElement(userIntegerArray);
         } catch (ProjectException projectException) {
             actualExceptionMessage = projectException.getMessage();
         }
@@ -83,14 +92,14 @@ public class IntegerArrayStreamSearchServiceImplTest {
     }
 
     @Test
-    public void searchMaxElement() {
+    public void searchMaxElementTest() {
 
         int[] integerArray = new int[]{-5, 0, 5, -20, 77};
         int actualMaximumElement = 0;
         try {
             userIntegerArray = arrayFactory.createUserIntegerArray(integerArray);
             actualMaximumElement =
-                    integerArraySearchService.searchMaxElement(userIntegerArray);
+                    integerArrayStreamSearchService.searchMaxElement(userIntegerArray);
         } catch (ProjectException projectException) {
             projectException.printStackTrace();
         }
@@ -99,14 +108,14 @@ public class IntegerArrayStreamSearchServiceImplTest {
     }
 
     @Test
-    public void searchMaxElementForOneElementArray() {
+    public void searchMaxElementForOneElementArrayTest() {
 
         int[] integerArray = new int[]{-177};
         int actualMaximumElement = 0;
         try {
             userIntegerArray = arrayFactory.createUserIntegerArray(integerArray);
             actualMaximumElement =
-                    integerArraySearchService.searchMaxElement(userIntegerArray);
+                    integerArrayStreamSearchService.searchMaxElement(userIntegerArray);
         } catch (ProjectException projectException) {
             projectException.printStackTrace();
         }
@@ -115,12 +124,12 @@ public class IntegerArrayStreamSearchServiceImplTest {
     }
 
     @Test
-    public void searchMaxElementForNotInitializedArray() {
+    public void searchMaxElementForNotInitializedArrayTest() {
 
         userIntegerArray = arrayFactory.createUserIntegerArray();
         String actualExceptionMessage = null;
         try {
-            integerArraySearchService.searchMaxElement(userIntegerArray);
+            integerArrayStreamSearchService.searchMaxElement(userIntegerArray);
         } catch (ProjectException projectException) {
             actualExceptionMessage = projectException.getMessage();
         }
@@ -130,12 +139,12 @@ public class IntegerArrayStreamSearchServiceImplTest {
     }
 
     @Test
-    public void searchMaxElementForDegeneratedArray() {
+    public void searchMaxElementForDegeneratedArrayTest() {
 
         String actualExceptionMessage = null;
         try {
             userIntegerArray = arrayFactory.createUserIntegerArray(new int[]{});
-            integerArraySearchService.searchMaxElement(userIntegerArray);
+            integerArrayStreamSearchService.searchMaxElement(userIntegerArray);
         } catch (ProjectException projectException) {
             actualExceptionMessage = projectException.getMessage();
         }
@@ -145,14 +154,14 @@ public class IntegerArrayStreamSearchServiceImplTest {
     }
 
     @Test
-    public void calculateAverageValue() {
+    public void calculateAverageValueTest() {
 
         int[] integerArray = new int[]{-5, 0, 10, -20, +20};
         double actualAverageValue = 0;
         try {
             userIntegerArray = arrayFactory.createUserIntegerArray(integerArray);
             actualAverageValue =
-                    integerArraySearchService.calculateAverageValue(userIntegerArray);
+                    integerArrayStreamSearchService.calculateAverageValue(userIntegerArray);
         } catch (ProjectException projectException) {
             projectException.printStackTrace();
         }
@@ -161,14 +170,14 @@ public class IntegerArrayStreamSearchServiceImplTest {
     }
 
     @Test
-    public void calculateAverageValueForOneElementArray() {
+    public void calculateAverageValueForOneElementArrayTest() {
 
         int[] integerArray = new int[]{13};
         double actualAverageValue = 0;
         try {
             userIntegerArray = arrayFactory.createUserIntegerArray(integerArray);
             actualAverageValue =
-                    integerArraySearchService.calculateAverageValue(userIntegerArray);
+                    integerArrayStreamSearchService.calculateAverageValue(userIntegerArray);
         } catch (ProjectException projectException) {
             projectException.printStackTrace();
         }
@@ -177,12 +186,12 @@ public class IntegerArrayStreamSearchServiceImplTest {
     }
 
     @Test
-    public void calculateAverageValueForNotInitializedArray() {
+    public void calculateAverageValueForNotInitializedArrayTest() {
 
         userIntegerArray = arrayFactory.createUserIntegerArray();
         String actualExceptionMessage = null;
         try {
-            integerArraySearchService.calculateAverageValue(userIntegerArray);
+            integerArrayStreamSearchService.calculateAverageValue(userIntegerArray);
         } catch (ProjectException projectException) {
             actualExceptionMessage = projectException.getMessage();
         }
@@ -192,12 +201,12 @@ public class IntegerArrayStreamSearchServiceImplTest {
     }
 
     @Test
-    public void calculateAverageValueForDegeneratedArray() {
+    public void calculateAverageValueForDegeneratedArrayTest() {
 
         String actualExceptionMessage = null;
         try {
             userIntegerArray = arrayFactory.createUserIntegerArray(new int[]{});
-            integerArraySearchService.calculateAverageValue(userIntegerArray);
+            integerArrayStreamSearchService.calculateAverageValue(userIntegerArray);
         } catch (ProjectException projectException) {
             actualExceptionMessage = projectException.getMessage();
         }
@@ -207,14 +216,14 @@ public class IntegerArrayStreamSearchServiceImplTest {
     }
 
     @Test
-    public void calculateSumOfArrayElements() {
+    public void calculateSumOfArrayElementsTest() {
 
         int[] integerArray = new int[]{-17, 2_147_483_000, 7, 10, +1_000_000_000};
         long actualTotalSum = 0;
         try {
             userIntegerArray = arrayFactory.createUserIntegerArray(integerArray);
             actualTotalSum =
-                    integerArraySearchService.calculateSumOfArrayElements(userIntegerArray);
+                    integerArrayStreamSearchService.calculateSumOfArrayElements(userIntegerArray);
         } catch (ProjectException projectException) {
             projectException.printStackTrace();
         }
@@ -223,14 +232,14 @@ public class IntegerArrayStreamSearchServiceImplTest {
     }
 
     @Test
-    public void calculateSumOfArrayElementsForOneElementArray() {
+    public void calculateSumOfArrayElementsForOneElementArrayTest() {
 
         int[] integerArray = new int[]{15};
         long actualTotalSum = 0;
         try {
             userIntegerArray = arrayFactory.createUserIntegerArray(integerArray);
             actualTotalSum =
-                    integerArraySearchService.calculateSumOfArrayElements(userIntegerArray);
+                    integerArrayStreamSearchService.calculateSumOfArrayElements(userIntegerArray);
         } catch (ProjectException projectException) {
             projectException.printStackTrace();
         }
@@ -239,12 +248,12 @@ public class IntegerArrayStreamSearchServiceImplTest {
     }
 
     @Test
-    public void calculateSumOfArrayElementsForNotInitializedArray() {
+    public void calculateSumOfArrayElementsForNotInitializedArrayTest() {
 
         userIntegerArray = arrayFactory.createUserIntegerArray();
         String actualExceptionMessage = null;
         try {
-            integerArraySearchService.calculateSumOfArrayElements(userIntegerArray);
+            integerArrayStreamSearchService.calculateSumOfArrayElements(userIntegerArray);
         } catch (ProjectException projectException) {
             actualExceptionMessage = projectException.getMessage();
         }
@@ -254,12 +263,12 @@ public class IntegerArrayStreamSearchServiceImplTest {
     }
 
     @Test
-    public void calculateSumOfArrayElementsForDegeneratedArray() {
+    public void calculateSumOfArrayElementsForDegeneratedArrayTest() {
 
         String actualExceptionMessage = null;
         try {
             userIntegerArray = arrayFactory.createUserIntegerArray(new int[]{});
-            integerArraySearchService.calculateAverageValue(userIntegerArray);
+            integerArrayStreamSearchService.calculateAverageValue(userIntegerArray);
         } catch (ProjectException projectException) {
             actualExceptionMessage = projectException.getMessage();
         }
@@ -269,14 +278,14 @@ public class IntegerArrayStreamSearchServiceImplTest {
     }
 
     @Test
-    public void countNegativeElementQuantity() {
+    public void countNegativeElementQuantityTest() {
 
         int[] integerArray = new int[]{-17, -2, 7, 10, -100};
         int actualElementQuantity = 0;
         try {
             userIntegerArray = arrayFactory.createUserIntegerArray(integerArray);
             actualElementQuantity =
-                    integerArraySearchService.countNegativeElementQuantity(userIntegerArray);
+                    integerArrayStreamSearchService.countNegativeElementQuantity(userIntegerArray);
         } catch (ProjectException projectException) {
             projectException.printStackTrace();
         }
@@ -285,14 +294,14 @@ public class IntegerArrayStreamSearchServiceImplTest {
     }
 
     @Test
-    public void countNegativeElementQuantityForOneElementArray() {
+    public void countNegativeElementQuantityForOneElementArrayTest() {
 
         int[] integerArray = new int[]{-1};
         int actualElementQuantity = 0;
         try {
             userIntegerArray = arrayFactory.createUserIntegerArray(integerArray);
             actualElementQuantity =
-                    integerArraySearchService.countNegativeElementQuantity(userIntegerArray);
+                    integerArrayStreamSearchService.countNegativeElementQuantity(userIntegerArray);
         } catch (ProjectException projectException) {
             projectException.printStackTrace();
         }
@@ -301,12 +310,12 @@ public class IntegerArrayStreamSearchServiceImplTest {
     }
 
     @Test
-    public void countNegativeElementQuantityForNotInitializedArray() {
+    public void countNegativeElementQuantityForNotInitializedArrayTest() {
 
         userIntegerArray = arrayFactory.createUserIntegerArray();
         String actualExceptionMessage = null;
         try {
-            integerArraySearchService.countNegativeElementQuantity(userIntegerArray);
+            integerArrayStreamSearchService.countNegativeElementQuantity(userIntegerArray);
         } catch (ProjectException projectException) {
             actualExceptionMessage = projectException.getMessage();
         }
@@ -316,12 +325,12 @@ public class IntegerArrayStreamSearchServiceImplTest {
     }
 
     @Test
-    public void countNegativeElementQuantityForDegeneratedArray() {
+    public void countNegativeElementQuantityForDegeneratedArrayTest() {
 
         String actualExceptionMessage = null;
         try {
             userIntegerArray = arrayFactory.createUserIntegerArray(new int[]{});
-            integerArraySearchService.countNegativeElementQuantity(userIntegerArray);
+            integerArrayStreamSearchService.countNegativeElementQuantity(userIntegerArray);
         } catch (ProjectException projectException) {
             actualExceptionMessage = projectException.getMessage();
         }
@@ -331,13 +340,13 @@ public class IntegerArrayStreamSearchServiceImplTest {
     }
 
     @Test
-    public void countNotNegativeElementQuantity() {
+    public void countNotNegativeElementQuantityTest() {
 
         int[] integerArray = new int[]{-17, 0, 7, 10, -100};
         int actualElementQuantity = 0;
         try {
             userIntegerArray = arrayFactory.createUserIntegerArray(integerArray);
-            actualElementQuantity = integerArraySearchService
+            actualElementQuantity = integerArrayStreamSearchService
                     .countNotNegativeElementQuantity(userIntegerArray);
         } catch (ProjectException projectException) {
             projectException.printStackTrace();
@@ -347,13 +356,13 @@ public class IntegerArrayStreamSearchServiceImplTest {
     }
 
     @Test
-    public void countNotNegativeElementQuantityForOneElementArray() {
+    public void countNotNegativeElementQuantityForOneElementArrayTest() {
 
         int[] integerArray = new int[]{0};
         int actualElementQuantity = 0;
         try {
             userIntegerArray = arrayFactory.createUserIntegerArray(integerArray);
-            actualElementQuantity = integerArraySearchService
+            actualElementQuantity = integerArrayStreamSearchService
                     .countNotNegativeElementQuantity(userIntegerArray);
         } catch (ProjectException projectException) {
             projectException.printStackTrace();
@@ -363,12 +372,12 @@ public class IntegerArrayStreamSearchServiceImplTest {
     }
 
     @Test
-    public void countNotNegativeElementQuantityForNotInitializedArray() {
+    public void countNotNegativeElementQuantityForNotInitializedArrayTest() {
 
         userIntegerArray = arrayFactory.createUserIntegerArray();
         String actualExceptionMessage = null;
         try {
-            integerArraySearchService.countNotNegativeElementQuantity(userIntegerArray);
+            integerArrayStreamSearchService.countNotNegativeElementQuantity(userIntegerArray);
         } catch (ProjectException projectException) {
             actualExceptionMessage = projectException.getMessage();
         }
@@ -378,12 +387,12 @@ public class IntegerArrayStreamSearchServiceImplTest {
     }
 
     @Test
-    public void countNotNegativeElementQuantityForDegeneratedArray() {
+    public void countNotNegativeElementQuantityForDegeneratedArrayTest() {
 
         String actualExceptionMessage = null;
         try {
             userIntegerArray = arrayFactory.createUserIntegerArray(new int[]{});
-            integerArraySearchService.countNotNegativeElementQuantity(userIntegerArray);
+            integerArrayStreamSearchService.countNotNegativeElementQuantity(userIntegerArray);
         } catch (ProjectException projectException) {
             actualExceptionMessage = projectException.getMessage();
         }

@@ -1,8 +1,7 @@
 package com.laisha.array.entity;
 
 import com.laisha.array.exception.ProjectException;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -15,20 +14,14 @@ public class UserIntegerArrayTest {
     private static final String REGEX_STRING_AS_UUID = "^[\\da-fA-F]{8}-[\\da-fA-F]{4}" +
             "-4[\\da-fA-F]{3}-[8-9abAB][\\da-fA-F]{3}-[\\da-fA-F]{12}$";
 
-    @BeforeEach
-    void setUp() {
-        userIntegerArray = null;
-
-    }
-
-    @AfterAll
-    static void tearDownClass() {
+    @AfterEach
+    void tearDown() {
 
         userIntegerArray = null;
     }
 
     @Test
-    public void createUserIntegerArrayWithNullArrayInitialization() {
+    public void createUserIntegerArrayWithNullArrayInitializationTest() {
 
         String actualExceptionMessage = null;
         try {
@@ -42,7 +35,7 @@ public class UserIntegerArrayTest {
     }
 
     @Test
-    public void getUserIntegerArrayWithoutArrayInitialization() {
+    public void getUserIntegerArrayWithoutArrayInitializationTest() {
 
         userIntegerArray = new UserIntegerArray();
         assertThrowsExactly(NullPointerException.class,
@@ -50,7 +43,7 @@ public class UserIntegerArrayTest {
     }
 
     @Test
-    public void getUserIntegerArrayWithArrayInitialization() {
+    public void getUserIntegerArrayWithArrayInitializationTest() {
 
         try {
             userIntegerArray = new UserIntegerArray(1, -1, 3);
@@ -63,7 +56,7 @@ public class UserIntegerArrayTest {
     }
 
     @Test
-    public void getUserIntegerArrayAndCheckArrayImmutable() {
+    public void getUserIntegerArrayAndCheckArrayImmutableTest() {
 
         try {
             userIntegerArray = new UserIntegerArray(1, -1, 3);
@@ -79,7 +72,7 @@ public class UserIntegerArrayTest {
     }
 
     @Test
-    public void setUserIntegerArray() {
+    public void setUserIntegerArrayTest() {
 
         userIntegerArray = new UserIntegerArray();
         int[] expectedIntegerArray = new int[]{1, -1, 3};
@@ -93,7 +86,7 @@ public class UserIntegerArrayTest {
     }
 
     @Test
-    public void setUserIntegerArrayByNull() {
+    public void setUserIntegerArrayByNullTest() {
 
         String actualExceptionMessage = null;
         userIntegerArray = new UserIntegerArray();
@@ -107,7 +100,7 @@ public class UserIntegerArrayTest {
     }
 
     @Test
-    public void setUserIntegerArrayByEmptyArray() {
+    public void setUserIntegerArrayByEmptyArrayTest() {
 
         userIntegerArray = new UserIntegerArray();
         int[] expectedIntegerArray = new int[]{};
@@ -121,7 +114,7 @@ public class UserIntegerArrayTest {
     }
 
     @Test
-    public void setUserIntegerArrayAndCheckArrayImmutable() {
+    public void setUserIntegerArrayAndCheckArrayImmutableTest() {
 
         userIntegerArray = new UserIntegerArray();
         int[] temporaryIntegerArray = new int[]{0, 5, -5};
@@ -138,7 +131,7 @@ public class UserIntegerArrayTest {
     }
 
     @Test
-    public void getUserIntegerArrayIdWithoutArrayInitialization() {
+    public void getUserIntegerArrayIdWithoutArrayInitializationTest() {
 
         userIntegerArray = new UserIntegerArray();
         String integerArrayId = userIntegerArray.getUserIntegerArrayId().toString();
@@ -146,7 +139,7 @@ public class UserIntegerArrayTest {
     }
 
     @Test
-    public void getUserIntegerArrayIdWithArrayInitialization() {
+    public void getUserIntegerArrayIdWithArrayInitializationTest() {
 
         userIntegerArray = null;
         try {

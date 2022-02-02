@@ -1,4 +1,4 @@
-package com.laisha.array.service.impl;
+package com.laisha.array.service;
 
 import com.laisha.array.entity.UserIntegerArray;
 import com.laisha.array.exception.ProjectException;

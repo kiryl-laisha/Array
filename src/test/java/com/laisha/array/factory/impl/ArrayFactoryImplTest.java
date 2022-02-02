@@ -3,32 +3,32 @@ package com.laisha.array.factory.impl;
 import com.laisha.array.entity.UserIntegerArray;
 import com.laisha.array.exception.ProjectException;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ArrayFactoryImplTest {
 
-    ArrayFactoryImpl arrayFactory = ArrayFactoryImpl.getInstance();
+    private static ArrayFactoryImpl arrayFactory = ArrayFactoryImpl.getInstance();
     private static UserIntegerArray userIntegerArray;
     private static final String REGEX_STRING_AS_UUID = "^[\\da-fA-F]{8}-[\\da-fA-F]{4}" +
             "-4[\\da-fA-F]{3}-[8-9abAB][\\da-fA-F]{3}-[\\da-fA-F]{12}$";
 
-    @BeforeEach
-    void setUp() {
-        userIntegerArray = null;
+    @AfterEach
+    void tearDown() {
 
+        userIntegerArray = null;
     }
 
     @AfterAll
     static void tearDownClass() {
 
-        userIntegerArray = null;
+        arrayFactory = null;
     }
 
     @Test
-    public void createUserIntegerArrayWithNullInitializedParameter() {
+    public void createUserIntegerArrayWithNullInitializedParameterTest() {
 
         String actualExceptionMessage = null;
         try {
@@ -41,7 +41,7 @@ public class ArrayFactoryImplTest {
     }
 
     @Test
-    public void getUserIntegerArrayWithoutArrayInitialization() {
+    public void getUserIntegerArrayWithoutArrayInitializationTest() {
 
         userIntegerArray = arrayFactory.createUserIntegerArray();
         assertThrowsExactly(NullPointerException.class,
@@ -49,7 +49,7 @@ public class ArrayFactoryImplTest {
     }
 
     @Test
-    public void getUserIntegerArrayWithArrayInitialization() {
+    public void getUserIntegerArrayWithArrayInitializationTest() {
 
         try {
             userIntegerArray = arrayFactory.createUserIntegerArray(-1, 0, 1);
@@ -62,7 +62,7 @@ public class ArrayFactoryImplTest {
     }
 
     @Test
-    public void getUserIntegerArrayIdWithoutArrayInitialization() {
+    public void getUserIntegerArrayIdWithoutArrayInitializationTest() {
 
         userIntegerArray = arrayFactory.createUserIntegerArray();
         String integerArrayId = userIntegerArray.getUserIntegerArrayId().toString();
@@ -70,7 +70,7 @@ public class ArrayFactoryImplTest {
     }
 
     @Test
-    public void getUserIntegerArrayIdWithArrayInitialization() {
+    public void getUserIntegerArrayIdWithArrayInitializationTest() {
 
         userIntegerArray = null;
         try {

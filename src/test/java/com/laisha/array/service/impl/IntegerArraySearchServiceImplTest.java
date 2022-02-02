@@ -3,6 +3,7 @@ package com.laisha.array.service.impl;
 import com.laisha.array.entity.UserIntegerArray;
 import com.laisha.array.exception.ProjectException;
 import com.laisha.array.factory.impl.ArrayFactoryImpl;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,11 +18,19 @@ public class IntegerArraySearchServiceImplTest {
 
     @AfterEach
     void tearDown() {
+
         userIntegerArray = null;
     }
 
+    @AfterAll
+    static void tearDownClass() {
+
+        integerArraySearchService = null;
+        arrayFactory = null;
+    }
+
     @Test
-    public void searchMinElement() {
+    public void searchMinElementTest() {
 
         int[] integerArray = new int[]{-5, 0, 5, -20, 77};
         int actualMinimumElement = 0;
@@ -37,7 +46,7 @@ public class IntegerArraySearchServiceImplTest {
     }
 
     @Test
-    public void searchMinElementForOneElementArray() {
+    public void searchMinElementForOneElementArrayTest() {
 
         int[] integerArray = new int[]{-77};
         int actualMinimumElement = 0;
@@ -53,7 +62,7 @@ public class IntegerArraySearchServiceImplTest {
     }
 
     @Test
-    public void searchMinElementForNotInitializedArray() {
+    public void searchMinElementForNotInitializedArrayTest() {
 
         userIntegerArray = arrayFactory.createUserIntegerArray();
         String actualExceptionMessage = null;
@@ -68,7 +77,7 @@ public class IntegerArraySearchServiceImplTest {
     }
 
     @Test
-    public void searchMinElementForDegeneratedArray() {
+    public void searchMinElementForDegeneratedArrayTest() {
 
         String actualExceptionMessage = null;
         try {
@@ -83,7 +92,7 @@ public class IntegerArraySearchServiceImplTest {
     }
 
     @Test
-    public void searchMaxElement() {
+    public void searchMaxElementTest() {
 
         int[] integerArray = new int[]{-5, 0, 5, -20, 77};
         int actualMaximumElement = 0;
@@ -99,7 +108,7 @@ public class IntegerArraySearchServiceImplTest {
     }
 
     @Test
-    public void searchMaxElementForOneElementArray() {
+    public void searchMaxElementForOneElementArrayTest() {
 
         int[] integerArray = new int[]{-177};
         int actualMaximumElement = 0;
@@ -115,7 +124,7 @@ public class IntegerArraySearchServiceImplTest {
     }
 
     @Test
-    public void searchMaxElementForNotInitializedArray() {
+    public void searchMaxElementForNotInitializedArrayTest() {
 
         userIntegerArray = arrayFactory.createUserIntegerArray();
         String actualExceptionMessage = null;
@@ -130,7 +139,7 @@ public class IntegerArraySearchServiceImplTest {
     }
 
     @Test
-    public void searchMaxElementForDegeneratedArray() {
+    public void searchMaxElementForDegeneratedArrayTest() {
 
         String actualExceptionMessage = null;
         try {
@@ -145,7 +154,7 @@ public class IntegerArraySearchServiceImplTest {
     }
 
     @Test
-    public void calculateAverageValue() {
+    public void calculateAverageValueTest() {
 
         int[] integerArray = new int[]{-5, 0, 10, -20, +20};
         double actualAverageValue = 0;
@@ -161,7 +170,7 @@ public class IntegerArraySearchServiceImplTest {
     }
 
     @Test
-    public void calculateAverageValueForOneElementArray() {
+    public void calculateAverageValueForOneElementArrayTest() {
 
         int[] integerArray = new int[]{13};
         double actualAverageValue = 0;
@@ -177,7 +186,7 @@ public class IntegerArraySearchServiceImplTest {
     }
 
     @Test
-    public void calculateAverageValueForNotInitializedArray() {
+    public void calculateAverageValueForNotInitializedArrayTest() {
 
         userIntegerArray = arrayFactory.createUserIntegerArray();
         String actualExceptionMessage = null;
@@ -192,7 +201,7 @@ public class IntegerArraySearchServiceImplTest {
     }
 
     @Test
-    public void calculateAverageValueForDegeneratedArray() {
+    public void calculateAverageValueForDegeneratedArrayTest() {
 
         String actualExceptionMessage = null;
         try {
@@ -207,7 +216,7 @@ public class IntegerArraySearchServiceImplTest {
     }
 
     @Test
-    public void calculateSumOfArrayElements() {
+    public void calculateSumOfArrayElementsTest() {
 
         int[] integerArray = new int[]{-17, 2_147_483_000, 7, 10, +1_000_000_000};
         long actualTotalSum = 0;
@@ -223,7 +232,7 @@ public class IntegerArraySearchServiceImplTest {
     }
 
     @Test
-    public void calculateSumOfArrayElementsForOneElementArray() {
+    public void calculateSumOfArrayElementsForOneElementArrayTest() {
 
         int[] integerArray = new int[]{15};
         long actualTotalSum = 0;
@@ -239,7 +248,7 @@ public class IntegerArraySearchServiceImplTest {
     }
 
     @Test
-    public void calculateSumOfArrayElementsForNotInitializedArray() {
+    public void calculateSumOfArrayElementsForNotInitializedArrayTest() {
 
         userIntegerArray = arrayFactory.createUserIntegerArray();
         String actualExceptionMessage = null;
@@ -254,7 +263,7 @@ public class IntegerArraySearchServiceImplTest {
     }
 
     @Test
-    public void calculateSumOfArrayElementsForDegeneratedArray() {
+    public void calculateSumOfArrayElementsForDegeneratedArrayTest() {
 
         String actualExceptionMessage = null;
         try {
@@ -269,7 +278,7 @@ public class IntegerArraySearchServiceImplTest {
     }
 
     @Test
-    public void countNegativeElementQuantity() {
+    public void countNegativeElementQuantityTest() {
 
         int[] integerArray = new int[]{-17, -2, 7, 10, -100};
         int actualElementQuantity = 0;
@@ -285,7 +294,7 @@ public class IntegerArraySearchServiceImplTest {
     }
 
     @Test
-    public void countNegativeElementQuantityForOneElementArray() {
+    public void countNegativeElementQuantityForOneElementArrayTest() {
 
         int[] integerArray = new int[]{-1};
         int actualElementQuantity = 0;
@@ -301,7 +310,7 @@ public class IntegerArraySearchServiceImplTest {
     }
 
     @Test
-    public void countNegativeElementQuantityForNotInitializedArray() {
+    public void countNegativeElementQuantityForNotInitializedArrayTest() {
 
         userIntegerArray = arrayFactory.createUserIntegerArray();
         String actualExceptionMessage = null;
@@ -316,7 +325,7 @@ public class IntegerArraySearchServiceImplTest {
     }
 
     @Test
-    public void countNegativeElementQuantityForDegeneratedArray() {
+    public void countNegativeElementQuantityForDegeneratedArrayTest() {
 
         String actualExceptionMessage = null;
         try {
@@ -331,7 +340,7 @@ public class IntegerArraySearchServiceImplTest {
     }
 
     @Test
-    public void countNotNegativeElementQuantity() {
+    public void countNotNegativeElementQuantityTest() {
 
         int[] integerArray = new int[]{-17, 0, 7, 10, -100};
         int actualElementQuantity = 0;
@@ -347,7 +356,7 @@ public class IntegerArraySearchServiceImplTest {
     }
 
     @Test
-    public void countNotNegativeElementQuantityForOneElementArray() {
+    public void countNotNegativeElementQuantityForOneElementArrayTest() {
 
         int[] integerArray = new int[]{0};
         int actualElementQuantity = 0;
@@ -363,7 +372,7 @@ public class IntegerArraySearchServiceImplTest {
     }
 
     @Test
-    public void countNotNegativeElementQuantityForNotInitializedArray() {
+    public void countNotNegativeElementQuantityForNotInitializedArrayTest() {
 
         userIntegerArray = arrayFactory.createUserIntegerArray();
         String actualExceptionMessage = null;
@@ -378,7 +387,7 @@ public class IntegerArraySearchServiceImplTest {
     }
 
     @Test
-    public void countNotNegativeElementQuantityForDegeneratedArray() {
+    public void countNotNegativeElementQuantityForDegeneratedArrayTest() {
 
         String actualExceptionMessage = null;
         try {

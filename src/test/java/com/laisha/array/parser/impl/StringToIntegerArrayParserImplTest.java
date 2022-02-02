@@ -1,7 +1,8 @@
 package com.laisha.array.parser.impl;
 
 import com.laisha.array.exception.ProjectException;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EmptySource;
@@ -13,17 +14,24 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StringToIntegerArrayParserImplTest {
 
-    private static final StringToIntegerArrayParserImpl stringToIntegerArrayParser =
+    private static StringToIntegerArrayParserImpl stringToIntegerArrayParser =
             StringToIntegerArrayParserImpl.getInstance();
     private static String actualExceptionMessage;
 
-    @BeforeEach
-    void setUp() {
+    @AfterEach
+    void tearDown() {
+
         actualExceptionMessage = null;
     }
 
+    @AfterAll
+    static void tearDownClass() {
+
+        stringToIntegerArrayParser = null;
+    }
+
     @Test
-    public void parseStringToIntegerArray() throws ProjectException {
+    public void parseStringToIntegerArrayTest() throws ProjectException {
 
         String stringAsIntegerArray = "5 -5   19  2022 ";
         int[] expected = new int[]{5, -5, 19, 2022};
@@ -36,7 +44,7 @@ public class StringToIntegerArrayParserImplTest {
     @ValueSource(strings = {"5 -1230 45321 -2147483649 +77777",
             " 5 23423 -964 7. 90",
             "5 1b -964 56 90"})
-    public void parseInvalidStringToIntegerArray(String stringAsIntegerArray) {
+    public void parseInvalidStringToIntegerArrayTest(String stringAsIntegerArray) {
 
         String expectedExceptionMessage = "The provided string \"" + stringAsIntegerArray +
                 "\" is not valid as integer array.";
@@ -45,12 +53,12 @@ public class StringToIntegerArrayParserImplTest {
         } catch (ProjectException projectException) {
             actualExceptionMessage = projectException.getMessage();
         }
-        assertEquals(actualExceptionMessage, expectedExceptionMessage);
+        assertEquals(expectedExceptionMessage, actualExceptionMessage);
     }
 
     @ParameterizedTest
     @NullSource
-    public void parseNullToIntegerArray(String stringAsIntegerArray) {
+    public void parseNullToIntegerArrayTest(String stringAsIntegerArray) {
 
         String expectedExceptionMessage = "The provided string is null.";
         try {
@@ -58,12 +66,12 @@ public class StringToIntegerArrayParserImplTest {
         } catch (ProjectException projectException) {
             actualExceptionMessage = projectException.getMessage();
         }
-        assertEquals(actualExceptionMessage, expectedExceptionMessage);
+        assertEquals(expectedExceptionMessage, actualExceptionMessage);
     }
 
     @ParameterizedTest
     @EmptySource
-    public void parseEmptyStringToIntegerArray(String stringAsIntegerArray) {
+    public void parseEmptyStringToIntegerArrayTest(String stringAsIntegerArray) {
 
         String expectedExceptionMessage = "The provided string is empty or " +
                 "contains only white space codepoints.";
@@ -72,11 +80,11 @@ public class StringToIntegerArrayParserImplTest {
         } catch (ProjectException projectException) {
             actualExceptionMessage = projectException.getMessage();
         }
-        assertEquals(actualExceptionMessage, expectedExceptionMessage);
+        assertEquals(expectedExceptionMessage, actualExceptionMessage);
     }
 
     @Test
-    public void parseNoElementStringToIntegerArray() {
+    public void parseNoElementStringToIntegerArrayTest() {
 
         String stringAsIntegerArray = "    \t\r\n \f ";
         String expectedExceptionMessage = "The provided string is empty or " +
@@ -86,6 +94,6 @@ public class StringToIntegerArrayParserImplTest {
         } catch (ProjectException projectException) {
             actualExceptionMessage = projectException.getMessage();
         }
-        assertEquals(actualExceptionMessage, expectedExceptionMessage);
+        assertEquals(expectedExceptionMessage, actualExceptionMessage);
     }
 }

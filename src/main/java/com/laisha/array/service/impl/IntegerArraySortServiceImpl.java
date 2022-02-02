@@ -41,10 +41,10 @@ public class IntegerArraySortServiceImpl implements IntegerArraySortService {
                 }
             }
         }
-        UserIntegerArray userIntegerArray1 =
+        UserIntegerArray otherUserIntegerArray =
                 arrayFactory.createUserIntegerArray(integerArray);
         logger.log(Level.DEBUG, "Bubble sorting completed.");
-        return userIntegerArray1;
+        return otherUserIntegerArray;
     }
 
     @Override
@@ -68,10 +68,10 @@ public class IntegerArraySortServiceImpl implements IntegerArraySortService {
                 }
             }
         }
-        UserIntegerArray userIntegerArray1 =
+        UserIntegerArray otherUserIntegerArray =
                 arrayFactory.createUserIntegerArray(integerArray);
         logger.log(Level.DEBUG, "Selection sorting completed.");
-        return userIntegerArray1;
+        return otherUserIntegerArray;
     }
 
     @Override
@@ -96,10 +96,10 @@ public class IntegerArraySortServiceImpl implements IntegerArraySortService {
                 integerArray[minElementIndex] = buffer;
             }
         }
-        UserIntegerArray userIntegerArray1 =
+        UserIntegerArray otherUserIntegerArray =
                 arrayFactory.createUserIntegerArray(integerArray);
         logger.log(Level.DEBUG, "Insertion sorting completed.");
-        return userIntegerArray1;
+        return otherUserIntegerArray;
     }
     @Override
     public UserIntegerArray sortByStream(UserIntegerArray userIntegerArray)
@@ -111,10 +111,10 @@ public class IntegerArraySortServiceImpl implements IntegerArraySortService {
                 .stream(integerArray)
                 .sorted()
                 .toArray();
-        UserIntegerArray userIntegerArray1 =
+        UserIntegerArray otherUserIntegerArray =
                 arrayFactory.createUserIntegerArray(integerArray);
         logger.log(Level.DEBUG, "Sorting by stream completed.");
-        return userIntegerArray1;
+        return otherUserIntegerArray;
     }
 
     private int[] getIntegerArrayWithCheckByNullAndEmpty(UserIntegerArray userIntegerArray)

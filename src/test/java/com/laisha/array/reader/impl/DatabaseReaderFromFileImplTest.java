@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertLinesMatch;
-import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DatabaseReaderFromFileImplTest {
 
@@ -19,15 +18,19 @@ public class DatabaseReaderFromFileImplTest {
     static List<String> expectedStringList;
     static List<String> actualStringList;
 
-    @AfterAll
-    static void tearDownClass() {
-        readerFromFile = null;
-    }
-
     @BeforeEach
     void setUp() {
+
         expectedStringList = new ArrayList<>();
         actualStringList = new ArrayList<>();
+    }
+
+    @AfterAll
+    static void tearDownClass() {
+
+        readerFromFile = null;
+        expectedStringList = null;
+        actualStringList = null;
     }
 
     @Test
@@ -100,5 +103,14 @@ public class DatabaseReaderFromFileImplTest {
         readerFromFile.setDefaultFilePath(TEST_NOT_EXIST_FILE_PATH);
         assertThrowsExactly(RuntimeException.class,
                 () -> readerFromFile.readListStringFromFile(null, true));
+    }
+
+    @Test
+    public void setDefaultFilePathTest() {
+
+        readerFromFile.setDefaultFilePath(TEST_FILE_PATH);
+        String actualDefaultFilePath = readerFromFile.getDefaultFilePath();
+        String expectedDefaultFilePath = TEST_FILE_PATH;
+        assertEquals(expectedDefaultFilePath, actualDefaultFilePath);
     }
 }
