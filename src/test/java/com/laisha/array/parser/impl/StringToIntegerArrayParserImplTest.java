@@ -2,8 +2,8 @@ package com.laisha.array.parser.impl;
 
 import com.laisha.array.exception.ProjectException;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EmptySource;
 import org.junit.jupiter.params.provider.NullSource;
@@ -12,88 +12,81 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class StringToIntegerArrayParserImplTest {
+class StringToIntegerArrayParserImplTest {
 
-    private static StringToIntegerArrayParserImpl stringToIntegerArrayParser =
+    private static StringToIntegerArrayParserImpl stringParser =
             StringToIntegerArrayParserImpl.getInstance();
     private static String actualExceptionMessage;
+    private static String expectedExceptionMessage;
 
-    @AfterEach
-    void tearDown() {
+    @BeforeEach
+    void setUp() {
 
         actualExceptionMessage = null;
+        expectedExceptionMessage = null;
     }
 
     @AfterAll
     static void tearDownClass() {
 
-        stringToIntegerArrayParser = null;
+        actualExceptionMessage = null;
+        expectedExceptionMessage = null;
+        stringParser = null;
     }
 
-    @Test
-    public void parseStringToIntegerArrayTest() throws ProjectException {
+    @ParameterizedTest
+    @DisplayName("Valid string is provided.")
+    @ValueSource(strings = {"5 -5   19  2022 "})
+    void parseStringToIntegerArrayPositiveTest(String stringAsIntegerArray)
+            throws ProjectException {
 
-        String stringAsIntegerArray = "5 -5   19  2022 ";
         int[] expected = new int[]{5, -5, 19, 2022};
-        int[] actual = stringToIntegerArrayParser
-                .parseStringToIntegerArray(stringAsIntegerArray);
+        int[] actual = stringParser.parseStringToIntegerArray(stringAsIntegerArray);
         assertArrayEquals(expected, actual);
     }
 
     @ParameterizedTest
+    @DisplayName("Invalid strings are provided.")
     @ValueSource(strings = {"5 -1230 45321 -2147483649 +77777",
             " 5 23423 -964 7. 90",
-            "5 1b -964 56 90"})
-    public void parseInvalidStringToIntegerArrayTest(String stringAsIntegerArray) {
+            "5 1b -964 56 90",
+            "a"})
+    void parseStringToIntegerArrayFirstNegativeTest(String stringAsIntegerArray) {
 
-        String expectedExceptionMessage = "The provided string \"" + stringAsIntegerArray +
+        expectedExceptionMessage = "The provided string \"" + stringAsIntegerArray +
                 "\" is not valid as integer array.";
         try {
-            stringToIntegerArrayParser.parseStringToIntegerArray(stringAsIntegerArray);
-        } catch (ProjectException projectException) {
-            actualExceptionMessage = projectException.getMessage();
+            stringParser.parseStringToIntegerArray(stringAsIntegerArray);
+        } catch (ProjectException e) {
+            actualExceptionMessage = e.getMessage();
         }
         assertEquals(expectedExceptionMessage, actualExceptionMessage);
     }
 
     @ParameterizedTest
+    @DisplayName("Null is provided.")
     @NullSource
-    public void parseNullToIntegerArrayTest(String stringAsIntegerArray) {
+    void parseStringToIntegerArraySecondNegativeTest(String stringAsIntegerArray) {
 
-        String expectedExceptionMessage = "The provided string is null.";
+        expectedExceptionMessage = "The provided string is null.";
         try {
-            stringToIntegerArrayParser.parseStringToIntegerArray(stringAsIntegerArray);
-        } catch (ProjectException projectException) {
-            actualExceptionMessage = projectException.getMessage();
+            stringParser.parseStringToIntegerArray(stringAsIntegerArray);
+        } catch (ProjectException e) {
+            actualExceptionMessage = e.getMessage();
         }
         assertEquals(expectedExceptionMessage, actualExceptionMessage);
     }
 
     @ParameterizedTest
+    @DisplayName("Empty string and string with whitespaces are provided.")
     @EmptySource
-    public void parseEmptyStringToIntegerArrayTest(String stringAsIntegerArray) {
+    @ValueSource(strings = {"    \t\r\n \f ",
+            "        "})
+    void parseStringToIntegerArraySecondPositiveTest(String stringAsIntegerArray)
+            throws ProjectException {
 
-        String expectedExceptionMessage = "The provided string is empty or " +
-                "contains only white space codepoints.";
-        try {
-            stringToIntegerArrayParser.parseStringToIntegerArray(stringAsIntegerArray);
-        } catch (ProjectException projectException) {
-            actualExceptionMessage = projectException.getMessage();
-        }
-        assertEquals(expectedExceptionMessage, actualExceptionMessage);
-    }
-
-    @Test
-    public void parseNoElementStringToIntegerArrayTest() {
-
-        String stringAsIntegerArray = "    \t\r\n \f ";
-        String expectedExceptionMessage = "The provided string is empty or " +
-                "contains only white space codepoints.";
-        try {
-            stringToIntegerArrayParser.parseStringToIntegerArray(stringAsIntegerArray);
-        } catch (ProjectException projectException) {
-            actualExceptionMessage = projectException.getMessage();
-        }
-        assertEquals(expectedExceptionMessage, actualExceptionMessage);
+        int[] expected = {};
+        int[] actual = stringParser.parseStringToIntegerArray(stringAsIntegerArray);
+        assertArrayEquals(expected, actual);
     }
 }

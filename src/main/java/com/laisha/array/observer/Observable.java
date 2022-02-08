@@ -1,12 +1,10 @@
 package com.laisha.array.observer;
 
-import com.laisha.array.exception.ProjectException;
-
 public interface Observable {
 
-    void attach(IntegerArrayObserver integerArrayObserver);
+    void attach(UserArrayObserver userArrayObserver);
 
-    void detach(IntegerArrayObserver integerArrayObserver);
+    void detach(UserArrayObserver userArrayObserver);
 
-    void notifyObservers() throws ProjectException;
+    void notifyObservers();
 }

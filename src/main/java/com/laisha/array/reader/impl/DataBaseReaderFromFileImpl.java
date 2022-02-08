@@ -1,7 +1,7 @@
 package com.laisha.array.reader.impl;
 
-import com.laisha.array.validator.impl.FilePathValidatorImpl;
 import com.laisha.array.reader.ReaderFromFile;
+import com.laisha.array.validator.impl.FilePathValidatorImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,7 +23,7 @@ public class DataBaseReaderFromFileImpl implements ReaderFromFile {
     private static final String WINDOWS_DIRECTORY_SEPARATOR = "\\";
     private static final String UNIX_DIRECTORY_SEPARATOR = "/";
 
-    private static String defaultFilePath = "data/default_data_arrays.txt.";
+    public static String defaultFilePath = "data/default_data_arrays.txt.";
 
     private DataBaseReaderFromFileImpl() {
     }
@@ -34,56 +34,61 @@ public class DataBaseReaderFromFileImpl implements ReaderFromFile {
     }
 
     @Override
-    public List<String> readListStringFromFile(String filepath, boolean defaultFileUsing) {
+    public List<String> readStringListFromFile(String filepath, boolean defaultFilePathUsing) {
 
         logger.log(Level.DEBUG, "The file path is \"{}\", a default file using is \"{}\".",
-                filepath, defaultFileUsing);
-        FilePathValidatorImpl filePathValidator = FilePathValidatorImpl.getInstance();
-        boolean isFilePathValid = filePathValidator.validateFilePath(filepath);
-
-        if (!isFilePathValid) {
-            logger.log(Level.INFO, "The default file \"{}\" is used.", defaultFilePath);
-            boolean isDefaultFilePathValid = filePathValidator.validateFilePath(defaultFilePath);
-            if (defaultFileUsing && isDefaultFilePathValid) {
-                filepath = defaultFilePath;
-            } else {
-                logger.log(Level.FATAL, "Reading from the files " +
-                        "(both provided and default) is not possible.\n" +
-                        "Database cannot be loaded from files.");
-                throw new RuntimeException("Database cannot be loaded from files.");
-            }
-        }
-        Path filePath = defineFilePath(filepath);
+                filepath, defaultFilePathUsing);
+        Path path = defineFilePathForData(filepath, defaultFilePathUsing);
         List<String> stringListFromFile;
-        try (Stream<String> stringStream = Files.newBufferedReader(filePath).lines()) {
+        try (Stream<String> stringStream = Files.newBufferedReader(path).lines()) {
             stringListFromFile = stringStream.collect(Collectors.toList());
-        } catch (IOException ioException) {
-            logger.log(Level.FATAL, "Reading from the file for the file path "
-                    + filepath + " is not available.\n" +
-                    "Database cannot be loaded from files.", ioException);
-            throw new RuntimeException("Database cannot be loaded from these files.",
-                    ioException);
+        } catch (IOException e) {
+            logger.log(Level.FATAL, "Reading from the file is not available. " +
+                    "Database can't be loaded.");
+            throw new RuntimeException("Database cannot be loaded from file.", e);
         }
         logger.log(Level.DEBUG, "The file for the file path \"{}\" has read successfully.\n" +
                 "{} string(s) have been read.", filepath, stringListFromFile.size());
         return stringListFromFile;
     }
 
-    private Path defineFilePath(String filepath) {
+    private Path defineFilePathForData(String filepath, boolean defaultFilePathUsing) {
 
+        FilePathValidatorImpl filePathValidator = FilePathValidatorImpl.getInstance();
+        boolean isFilePathValid = filePathValidator.validateFilePath(filepath);
+        if (!isFilePathValid && !defaultFilePathUsing) {
+            logger.log(Level.FATAL, "Reading from the file is not possible. " +
+                    "Default file path doesn't use.\nDatabase can't be loaded.");
+            throw new RuntimeException("Database cannot be loaded from file.");
+        }
+        if (!isFilePathValid) {
+            logger.log(Level.WARN, "The default file path \"{}\" is used.", defaultFilePath);
+            boolean isDefaultFilePathValid = filePathValidator.validateFilePath(defaultFilePath);
+            if (isDefaultFilePathValid) {
+                filepath = defaultFilePath;
+            } else {
+                logger.log(Level.FATAL, "Reading from the files " +
+                        "(both provided and default) is not possible.\n" +
+                        "Database cannot be loaded.");
+                throw new RuntimeException("Database cannot be loaded from files.");
+            }
+        }
         filepath = filepath.replace(WINDOWS_DIRECTORY_SEPARATOR, UNIX_DIRECTORY_SEPARATOR);
         URL dataFileUrl = getClass().getClassLoader().getResource(filepath);
+        if (dataFileUrl == null) {
+            logger.log(Level.FATAL, "URL for the file path \"{}\" could not be found. " +
+                    "Reading from the file is not possible.\n" +
+                    "Database cannot be loaded.", filepath);
+            throw new RuntimeException("URL for the file path \"" + filepath + "\" could not " +
+                    "be found. Database cannot be loaded from file.");
+        }
         File dataFile = new File(dataFileUrl.getFile());
+        if (dataFile.length() == 0) {
+            logger.log(Level.FATAL, "Reading from the file \"{}\" is not possible, " +
+                    "file is empty.\nDatabase cannot be loaded.", filepath);
+            throw new RuntimeException("File \"" + filepath + "\" " +
+                    "is empty. Database cannot be loaded.");
+        }
         return (Paths.get(dataFile.getAbsolutePath()));
-    }
-
-    public void setDefaultFilePath(String defaultFilePath) {
-
-        this.defaultFilePath = defaultFilePath;
-    }
-
-    public String getDefaultFilePath() {
-
-        return defaultFilePath;
     }
 }

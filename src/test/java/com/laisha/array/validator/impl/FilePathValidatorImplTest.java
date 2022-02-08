@@ -1,14 +1,17 @@
 package com.laisha.array.validator.impl;
 
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class FilePathValidatorImplTest {
+class FilePathValidatorImplTest {
 
-    private static FilePathValidatorImpl filePathValidator = FilePathValidatorImpl.getInstance();
+    static FilePathValidatorImpl filePathValidator = FilePathValidatorImpl.getInstance();
 
     @AfterAll
     static void tearDownClass() {
@@ -16,34 +19,25 @@ public class FilePathValidatorImplTest {
         filePathValidator = null;
     }
 
-    @Test
-    public void validateExistFilePathTest() {
+    @ParameterizedTest
+    @DisplayName("File path is valid.")
+    @ValueSource(strings = {"data\\test_data_arrays.txt",
+            "data/test_default_data_arrays.txt",
+            "data/test_empty_file.txt"})
+    void validateFilePathPositiveTest(String filepath) {
 
-        String validFilePath = "data/validator_data/valid_file.txt";
-        boolean isValidFilePath = filePathValidator.validateFilePath(validFilePath);
+        boolean isValidFilePath = filePathValidator.validateFilePath(filepath);
         assertTrue(isValidFilePath);
     }
 
-    @Test
-    public void validateNotExistFilePathTest() {
+    @ParameterizedTest
+    @DisplayName("File path is null or empty or not exist.")
+    @NullAndEmptySource
+    @ValueSource(strings = {"data/validator_data/file.txt",
+            "data\\arrays.txt", " ", "\n  \t \r  "})
+    void validateFilePathNegativeTest(String filepath) {
 
-        String invalidFilePath = "data/validator_data/file.txt";
-        boolean isValidFilePath = filePathValidator.validateFilePath(invalidFilePath);
-        assertFalse(isValidFilePath);
-    }
-
-    @Test
-    public void validateNullFilePathTest() {
-
-        boolean isValidFilePath = filePathValidator.validateFilePath(null);
-        assertFalse(isValidFilePath);
-    }
-
-    @Test
-    public void validateExistFilePathWithEmptyFileTest() {
-
-        String validFilePath = "data/validator_data/empty_file.txt";
-        boolean isValidFilePath = filePathValidator.validateFilePath(validFilePath);
+        boolean isValidFilePath = filePathValidator.validateFilePath(filepath);
         assertFalse(isValidFilePath);
     }
 }

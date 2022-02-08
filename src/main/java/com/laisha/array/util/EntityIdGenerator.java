@@ -8,7 +8,6 @@ public class EntityIdGenerator {
     }
 
     public static UUID generateEntityId() {
-
         return UUID.randomUUID();
     }
 }

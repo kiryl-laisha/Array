@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface ReaderFromFile {
 
-    List<String> readListStringFromFile(String filePath, boolean defaultFileUsing)
+    List<String> readStringListFromFile(String filePath, boolean defaultFileUsing)
             throws ProjectException;
 }

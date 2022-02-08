@@ -21,7 +21,6 @@ public class StringToIntegerArrayParserImpl implements StringToIntegerArrayParse
     }
 
     public static StringToIntegerArrayParserImpl getInstance() {
-
         return instance;
     }
 
@@ -32,8 +31,7 @@ public class StringToIntegerArrayParserImpl implements StringToIntegerArrayParse
             throw new ProjectException("The provided string is null.");
         }
         if (stringArray.isBlank()) {
-            throw new ProjectException("The provided string is empty or " +
-                    "contains only white space codepoints.");
+            return new int[]{};
         }
         StringAsIntegerArrayValidatorImpl stringAsIntegerArrayValidator =
                 StringAsIntegerArrayValidatorImpl.getInstance();
@@ -43,12 +41,11 @@ public class StringToIntegerArrayParserImpl implements StringToIntegerArrayParse
         }
         stringArray = stringArray.strip();
         String[] arrayElementStrings = stringArray.split(ELEMENTS_DELIMITER);
-
         int[] integerArray = Arrays.stream(arrayElementStrings)
                 .flatMapToInt(x -> IntStream.of(Integer.parseInt(x)))
                 .toArray();
         logger.log(Level.DEBUG, "The string \"{}\" has been parsed by " +
-                "integer array: {}.", stringArray, Arrays.toString(integerArray));
+                "integer array.", stringArray);
         return integerArray;
     }
 }

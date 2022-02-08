@@ -4,5 +4,5 @@ import com.laisha.array.exception.ProjectException;
 
 public interface StringToIntegerArrayParser {
 
-    int[] parseStringToIntegerArray(String string) throws ProjectException;
+    int[] parseStringToIntegerArray(String stringAsArray) throws ProjectException;
 }

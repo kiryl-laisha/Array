@@ -24,22 +24,21 @@ public class StringAsIntegerArrayValidatorImpl implements StringAsArrayValidator
     }
 
     public static StringAsIntegerArrayValidatorImpl getInstance() {
-
         return instance;
     }
 
     @Override
     public boolean validateStringAsArray(String stringArray) {
 
-        boolean isValidStringAsIntegerArray = false;
-        if (stringArray != null) {
-            if (stringArray.matches(STRING_AS_INTEGER_ARRAY)) {
-                isValidStringAsIntegerArray = true;
-            } else {
-                logger.log(Level.DEBUG, "The string \"{}\" is not valid as " +
-                        "integer array.", stringArray);
-            }
+        if (stringArray == null) {
+            logger.log(Level.DEBUG, "The provided string is null.");
+            return false;
         }
-        return isValidStringAsIntegerArray;
+        if (!stringArray.matches(STRING_AS_INTEGER_ARRAY)) {
+            logger.log(Level.DEBUG, "The string \"{}\" is not valid as " +
+                    "integer array.", stringArray);
+            return false;
+        }
+        return true;
     }
 }

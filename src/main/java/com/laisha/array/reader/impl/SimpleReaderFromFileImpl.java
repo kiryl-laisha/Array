@@ -1,8 +1,8 @@
 package com.laisha.array.reader.impl;
 
 import com.laisha.array.exception.ProjectException;
-import com.laisha.array.validator.impl.FilePathValidatorImpl;
 import com.laisha.array.reader.ReaderFromFile;
+import com.laisha.array.validator.impl.FilePathValidatorImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,67 +24,66 @@ public class SimpleReaderFromFileImpl implements ReaderFromFile {
     private static final String WINDOWS_DIRECTORY_SEPARATOR = "\\";
     private static final String UNIX_DIRECTORY_SEPARATOR = "/";
 
-    private static String defaultFilePath = "data/default_data_strings.txt.";
+    public static String defaultFilePath = "data/default_data_strings.txt.";
 
     private SimpleReaderFromFileImpl() {
     }
 
     public static SimpleReaderFromFileImpl getInstance() {
-
         return instance;
     }
 
     @Override
-    public List<String> readListStringFromFile(String filepath, boolean defaultFileUsing)
+    public List<String> readStringListFromFile(String filepath, boolean defaultFilePathUsing)
             throws ProjectException {
 
         logger.log(Level.DEBUG, "The file path is \"{}\", a default file using is \"{}\".",
-                filepath, defaultFileUsing);
-        FilePathValidatorImpl filePathValidator = FilePathValidatorImpl.getInstance();
-        boolean isFilePathValid = filePathValidator.validateFilePath(filepath);
-
-        if (!isFilePathValid) {
-            if (defaultFileUsing) {
-                logger.log(Level.INFO, "The default file \"{}\" is used.", defaultFilePath);
-                if (filePathValidator.validateFilePath(defaultFilePath)) {
-                    filepath = defaultFilePath;
-                } else {
-                    throw new ProjectException("Reading from the files (both provided and default) " +
-                            "is not possible.");
-                }
-            } else {
-                throw new ProjectException("Reading from the file for the file path "
-                        + filepath + " is not available.");
-            }
-        }
-        Path filePath = defineFilePath(filepath);
+                filepath, defaultFilePathUsing);
+        Path path = defineFilePathForData(filepath, defaultFilePathUsing);
         List<String> stringListFromFile;
-        try (Stream<String> stringStream = Files.newBufferedReader(filePath).lines()) {
+        try (Stream<String> stringStream = Files.newBufferedReader(path).lines()) {
             stringListFromFile = stringStream.collect(Collectors.toList());
-        } catch (IOException ioException) {
+        } catch (IOException e) {
             throw new ProjectException("Reading from the file for the file path \""
-                    + filepath + "\" is not available, ", ioException);
+                    + filepath + "\" is not available, ", e);
         }
         logger.log(Level.DEBUG, "The file for the file path \"{}\" has read successfully.\n" +
                 "{} string(s) have been read.", filepath, stringListFromFile.size());
         return stringListFromFile;
     }
 
-    private Path defineFilePath(String filepath) {
+    private Path defineFilePathForData(String filepath, boolean defaultFilePathUsing)
+            throws ProjectException{
 
+        FilePathValidatorImpl filePathValidator = FilePathValidatorImpl.getInstance();
+        boolean isFilePathValid = filePathValidator.validateFilePath(filepath);
+        if (!isFilePathValid && !defaultFilePathUsing) {
+            throw new ProjectException("Reading from the file is not possible. " +
+                    "Default file path doesn't use.");
+        }
+        if (!isFilePathValid) {
+            logger.log(Level.WARN, "The default file path \"{}\" is used.", defaultFilePath);
+            boolean isDefaultFilePathValid = filePathValidator.validateFilePath(defaultFilePath);
+            if (isDefaultFilePathValid) {
+                filepath = defaultFilePath;
+            } else {
+                throw new ProjectException("Reading from the files (both " +
+                        "provided and default) is not possible.");
+            }
+        }
         filepath = filepath.replace(WINDOWS_DIRECTORY_SEPARATOR, UNIX_DIRECTORY_SEPARATOR);
         URL dataFileUrl = getClass().getClassLoader().getResource(filepath);
+        if (dataFileUrl == null) {
+            throw new ProjectException("URL for the file path \"" + filepath + "\" could not " +
+                    "be found. Reading from the file is not possible.");
+        }
         File dataFile = new File(dataFileUrl.getFile());
+        if (dataFile.length() == 0) {
+            logger.log(Level.FATAL, "Reading from the file \"{}\" is not possible, " +
+                    "file is empty.\nDatabase cannot be loaded.", filepath);
+            throw new ProjectException("File \"" + filepath + "\" " +
+                    "is empty. Reading from the file is not possible.");
+        }
         return (Paths.get(dataFile.getAbsolutePath()));
-    }
-
-    public void setDefaultFilePath(String defaultFilePath) {
-
-        this.defaultFilePath = defaultFilePath;
-    }
-
-    public String getDefaultFilePath() {
-
-        return defaultFilePath;
     }
 }

@@ -1,12 +1,10 @@
 package com.laisha.array.factory;
 
-import com.laisha.array.entity.UserIntegerArray;
-import com.laisha.array.exception.ProjectException;
+import com.laisha.array.entity.UserArray;
 
 public interface ArrayFactory {
 
-    UserIntegerArray createUserIntegerArray();
+    UserArray createUserArray();
 
-    UserIntegerArray createUserIntegerArray(int... integerArray)
-            throws ProjectException;
+    UserArray createUserArray(int[] integerArray);
 }
