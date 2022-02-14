@@ -25,27 +25,27 @@ public class StringToIntegerArrayParserImpl implements StringToIntegerArrayParse
     }
 
     @Override
-    public int[] parseStringToIntegerArray(String stringArray) throws ProjectException {
+    public int[] parseStringToIntegerArray(String stringAsArray) throws ProjectException {
 
-        if (stringArray == null) {
+        if (stringAsArray == null) {
             throw new ProjectException("The provided string is null.");
         }
-        if (stringArray.isBlank()) {
+        if (stringAsArray.isBlank()) {
             return new int[]{};
         }
-        StringAsIntegerArrayValidatorImpl stringAsIntegerArrayValidator =
+        StringAsIntegerArrayValidatorImpl validator =
                 StringAsIntegerArrayValidatorImpl.getInstance();
-        if (!stringAsIntegerArrayValidator.validateStringAsArray(stringArray)) {
-            throw new ProjectException("The provided string \"" + stringArray +
+        if (!validator.validateStringAsArray(stringAsArray)) {
+            throw new ProjectException("The provided string \"" + stringAsArray +
                     "\" is not valid as integer array.");
         }
-        stringArray = stringArray.strip();
-        String[] arrayElementStrings = stringArray.split(ELEMENTS_DELIMITER);
+        stringAsArray = stringAsArray.strip();
+        String[] arrayElementStrings = stringAsArray.split(ELEMENTS_DELIMITER);
         int[] integerArray = Arrays.stream(arrayElementStrings)
                 .flatMapToInt(x -> IntStream.of(Integer.parseInt(x)))
                 .toArray();
         logger.log(Level.DEBUG, "The string \"{}\" has been parsed by " +
-                "integer array.", stringArray);
+                "integer array.", stringAsArray);
         return integerArray;
     }
 }

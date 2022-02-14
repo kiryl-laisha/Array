@@ -1,20 +1,20 @@
 package com.laisha.array.comparator;
 
-import com.laisha.array.entity.UserArray;
-import com.laisha.array.service.impl.UserIntegerArrayStreamSearchServiceImpl;
+import com.laisha.array.entity.CustomArray;
+import com.laisha.array.service.impl.CustomIntegerArrayStreamSearchServiceImpl;
 
 import java.util.Comparator;
 import java.util.OptionalInt;
 
-public class IntegerMaxElementComparator implements Comparator<UserArray> {
+public class IntegerMaxElementComparator implements Comparator<CustomArray> {
 
-    private static final UserIntegerArrayStreamSearchServiceImpl searchService =
-            UserIntegerArrayStreamSearchServiceImpl.getInstance();
+    private static final CustomIntegerArrayStreamSearchServiceImpl searchService =
+            CustomIntegerArrayStreamSearchServiceImpl.getInstance();
 
     @Override
-    public int compare(UserArray firstUserArray, UserArray secondUserArray) {
+    public int compare(CustomArray firstCustomArray, CustomArray secondCustomArray) {
 
-        OptionalInt maxElement = searchService.searchMaxElement(firstUserArray);
+        OptionalInt maxElement = searchService.searchMaxElement(firstCustomArray);
         int firstMaxElement;
         if (maxElement.isPresent()) {
             firstMaxElement = maxElement.getAsInt();
@@ -22,7 +22,7 @@ public class IntegerMaxElementComparator implements Comparator<UserArray> {
             return -1;
         }
         int secondMaxElement;
-        maxElement = searchService.searchMaxElement(secondUserArray);
+        maxElement = searchService.searchMaxElement(secondCustomArray);
         if (maxElement.isPresent()) {
             secondMaxElement = maxElement.getAsInt();
         } else {

@@ -1,10 +1,10 @@
 package com.laisha.array.factory;
 
-import com.laisha.array.entity.UserArray;
+import com.laisha.array.entity.CustomArray;
 
 public interface ArrayFactory {
 
-    UserArray createUserArray();
+    CustomArray createCustomArray();
 
-    UserArray createUserArray(int[] integerArray);
+    CustomArray createCustomArray(int[] integerArray);
 }

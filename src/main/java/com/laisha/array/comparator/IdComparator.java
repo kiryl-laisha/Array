@@ -1,13 +1,13 @@
 package com.laisha.array.comparator;
 
-import com.laisha.array.entity.UserArray;
+import com.laisha.array.entity.CustomArray;
 
 import java.util.Comparator;
 
-public class IdComparator implements Comparator<UserArray> {
+public class IdComparator implements Comparator<CustomArray> {
 
     @Override
-    public int compare(UserArray firstUserArray, UserArray secondUserArray) {
-        return firstUserArray.getUserArrayId().compareTo(secondUserArray.getUserArrayId());
+    public int compare(CustomArray firstCustomArray, CustomArray secondCustomArray) {
+        return firstCustomArray.getCustomArrayId().compareTo(secondCustomArray.getCustomArrayId());
     }
 }

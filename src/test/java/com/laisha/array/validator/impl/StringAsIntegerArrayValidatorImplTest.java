@@ -11,13 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class StringAsIntegerArrayValidatorImplTest {
 
-    private static StringAsIntegerArrayValidatorImpl stringAsIntegerArrayValidator =
+    private static StringAsIntegerArrayValidatorImpl validator =
             StringAsIntegerArrayValidatorImpl.getInstance();
 
     @AfterAll
     static void tearDownClass() {
-
-        stringAsIntegerArrayValidator = null;
+        validator = null;
     }
 
     @ParameterizedTest
@@ -28,7 +27,7 @@ class StringAsIntegerArrayValidatorImplTest {
     void validateStringAsIntegerArrayPositiveTest(String stringAsArray) {
 
         boolean isValidStringAsIntegerArray =
-                stringAsIntegerArrayValidator.validateStringAsArray(stringAsArray);
+                validator.validateStringAsArray(stringAsArray);
         assertTrue(isValidStringAsIntegerArray);
     }
 
@@ -43,7 +42,7 @@ class StringAsIntegerArrayValidatorImplTest {
     void validateStringAsIntegerArrayNegativeTest(String stringAsArray) {
 
         boolean isValidStringAsIntegerArray =
-                stringAsIntegerArrayValidator.validateStringAsArray(stringAsArray);
+                validator.validateStringAsArray(stringAsArray);
         assertFalse(isValidStringAsIntegerArray);
     }
 }

@@ -24,7 +24,7 @@ public class SimpleReaderFromFileImpl implements ReaderFromFile {
     private static final String WINDOWS_DIRECTORY_SEPARATOR = "\\";
     private static final String UNIX_DIRECTORY_SEPARATOR = "/";
 
-    public static String defaultFilePath = "data/default_data_strings.txt.";
+    public static String defaultFilePath = "data/default_data_strings.txt";
 
     private SimpleReaderFromFileImpl() {
     }
@@ -55,15 +55,15 @@ public class SimpleReaderFromFileImpl implements ReaderFromFile {
     private Path defineFilePathForData(String filepath, boolean defaultFilePathUsing)
             throws ProjectException{
 
-        FilePathValidatorImpl filePathValidator = FilePathValidatorImpl.getInstance();
-        boolean isFilePathValid = filePathValidator.validateFilePath(filepath);
+        FilePathValidatorImpl validator = FilePathValidatorImpl.getInstance();
+        boolean isFilePathValid = validator.validateFilePath(filepath);
         if (!isFilePathValid && !defaultFilePathUsing) {
             throw new ProjectException("Reading from the file is not possible. " +
                     "Default file path doesn't use.");
         }
         if (!isFilePathValid) {
             logger.log(Level.WARN, "The default file path \"{}\" is used.", defaultFilePath);
-            boolean isDefaultFilePathValid = filePathValidator.validateFilePath(defaultFilePath);
+            boolean isDefaultFilePathValid = validator.validateFilePath(defaultFilePath);
             if (isDefaultFilePathValid) {
                 filepath = defaultFilePath;
             } else {

@@ -1,15 +1,15 @@
 package com.laisha.array.repository.impl;
 
-import com.laisha.array.entity.UserArray;
-import com.laisha.array.repository.UserArraySpecification;
-import com.laisha.array.service.impl.UserIntegerArraySearchServiceImpl;
+import com.laisha.array.entity.CustomArray;
+import com.laisha.array.repository.CustomArraySpecification;
+import com.laisha.array.service.impl.CustomIntegerArraySearchServiceImpl;
 
 import java.util.OptionalDouble;
 
-public class AverageValueEqualsSpecificationImpl implements UserArraySpecification {
+public class AverageValueEqualsSpecificationImpl implements CustomArraySpecification {
 
-    private static final UserIntegerArraySearchServiceImpl searchService =
-            UserIntegerArraySearchServiceImpl.getInstance();
+    private static final CustomIntegerArraySearchServiceImpl searchService =
+            CustomIntegerArraySearchServiceImpl.getInstance();
     private final double providedValue;
 
     public AverageValueEqualsSpecificationImpl(double providedValue) {
@@ -17,9 +17,9 @@ public class AverageValueEqualsSpecificationImpl implements UserArraySpecificati
     }
 
     @Override
-    public boolean specify(UserArray userArray) {
+    public boolean specify(CustomArray customArray) {
 
-        OptionalDouble averageValue = searchService.calculateAverageValue(userArray);
+        OptionalDouble averageValue = searchService.calculateAverageValue(customArray);
         if (averageValue.isEmpty()) {
             return false;
         }

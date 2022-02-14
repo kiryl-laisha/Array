@@ -2,9 +2,9 @@ package com.laisha.array.observer;
 
 public interface Observable {
 
-    void attach(UserArrayObserver userArrayObserver);
+    void attach(CustomArrayObserver observer);
 
-    void detach(UserArrayObserver userArrayObserver);
+    void detach(CustomArrayObserver observer);
 
     void notifyObservers();
 }

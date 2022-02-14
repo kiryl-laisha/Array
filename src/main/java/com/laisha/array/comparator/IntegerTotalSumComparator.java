@@ -1,20 +1,20 @@
 package com.laisha.array.comparator;
 
-import com.laisha.array.entity.UserArray;
-import com.laisha.array.service.impl.UserIntegerArrayStreamSearchServiceImpl;
+import com.laisha.array.entity.CustomArray;
+import com.laisha.array.service.impl.CustomIntegerArrayStreamSearchServiceImpl;
 
 import java.util.Comparator;
 import java.util.OptionalLong;
 
-public class IntegerTotalSumComparator implements Comparator<UserArray> {
+public class IntegerTotalSumComparator implements Comparator<CustomArray> {
 
-    private static final UserIntegerArrayStreamSearchServiceImpl searchService =
-            UserIntegerArrayStreamSearchServiceImpl.getInstance();
+    private static final CustomIntegerArrayStreamSearchServiceImpl searchService =
+            CustomIntegerArrayStreamSearchServiceImpl.getInstance();
 
     @Override
-    public int compare(UserArray firstUserArray, UserArray secondUserArray) {
+    public int compare(CustomArray firstCustomArray, CustomArray secondCustomArray) {
 
-        OptionalLong totalSum = searchService.calculateSumOfArrayElements(firstUserArray);
+        OptionalLong totalSum = searchService.calculateSumOfArrayElements(firstCustomArray);
         long firstTotalSum;
         if (totalSum.isPresent()) {
             firstTotalSum = totalSum.getAsLong();
@@ -22,7 +22,7 @@ public class IntegerTotalSumComparator implements Comparator<UserArray> {
             return -1;
         }
         long secondTotalSum;
-        totalSum = searchService.calculateSumOfArrayElements(secondUserArray);
+        totalSum = searchService.calculateSumOfArrayElements(secondCustomArray);
         if (totalSum.isPresent()) {
             secondTotalSum = totalSum.getAsLong();
         } else {

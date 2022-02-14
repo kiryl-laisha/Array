@@ -1,15 +1,15 @@
 package com.laisha.array.repository.impl;
 
-import com.laisha.array.entity.UserArray;
-import com.laisha.array.service.impl.UserIntegerArrayStreamSearchServiceImpl;
+import com.laisha.array.entity.CustomArray;
+import com.laisha.array.service.impl.CustomIntegerArrayStreamSearchServiceImpl;
 
 import java.util.OptionalLong;
 import java.util.function.Predicate;
 
-public class TotalSumMorePredicate implements Predicate<UserArray> {
+public class TotalSumMorePredicate implements Predicate<CustomArray> {
 
-    private static final UserIntegerArrayStreamSearchServiceImpl searchService =
-            UserIntegerArrayStreamSearchServiceImpl.getInstance();
+    private static final CustomIntegerArrayStreamSearchServiceImpl searchService =
+            CustomIntegerArrayStreamSearchServiceImpl.getInstance();
     private final long providedTotalSum;
 
     public TotalSumMorePredicate(long providedTotalSum) {
@@ -17,9 +17,9 @@ public class TotalSumMorePredicate implements Predicate<UserArray> {
     }
 
     @Override
-    public boolean test(UserArray userArray) {
+    public boolean test(CustomArray customArray) {
 
-        OptionalLong optionalTotalSum = searchService.calculateSumOfArrayElements(userArray);
+        OptionalLong optionalTotalSum = searchService.calculateSumOfArrayElements(customArray);
         if (optionalTotalSum.isEmpty()) {
             return false;
         }

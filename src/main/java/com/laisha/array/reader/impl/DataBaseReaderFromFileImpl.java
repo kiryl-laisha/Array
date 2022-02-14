@@ -23,7 +23,7 @@ public class DataBaseReaderFromFileImpl implements ReaderFromFile {
     private static final String WINDOWS_DIRECTORY_SEPARATOR = "\\";
     private static final String UNIX_DIRECTORY_SEPARATOR = "/";
 
-    public static String defaultFilePath = "data/default_data_arrays.txt.";
+    public static String defaultFilePath = "data/default_data_arrays.txt";
 
     private DataBaseReaderFromFileImpl() {
     }
@@ -54,8 +54,8 @@ public class DataBaseReaderFromFileImpl implements ReaderFromFile {
 
     private Path defineFilePathForData(String filepath, boolean defaultFilePathUsing) {
 
-        FilePathValidatorImpl filePathValidator = FilePathValidatorImpl.getInstance();
-        boolean isFilePathValid = filePathValidator.validateFilePath(filepath);
+        FilePathValidatorImpl validator = FilePathValidatorImpl.getInstance();
+        boolean isFilePathValid = validator.validateFilePath(filepath);
         if (!isFilePathValid && !defaultFilePathUsing) {
             logger.log(Level.FATAL, "Reading from the file is not possible. " +
                     "Default file path doesn't use.\nDatabase can't be loaded.");
@@ -63,7 +63,7 @@ public class DataBaseReaderFromFileImpl implements ReaderFromFile {
         }
         if (!isFilePathValid) {
             logger.log(Level.WARN, "The default file path \"{}\" is used.", defaultFilePath);
-            boolean isDefaultFilePathValid = filePathValidator.validateFilePath(defaultFilePath);
+            boolean isDefaultFilePathValid = validator.validateFilePath(defaultFilePath);
             if (isDefaultFilePathValid) {
                 filepath = defaultFilePath;
             } else {

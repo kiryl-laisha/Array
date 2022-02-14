@@ -1,15 +1,15 @@
 package com.laisha.array.repository.impl;
 
-import com.laisha.array.entity.UserArray;
-import com.laisha.array.repository.UserArraySpecification;
-import com.laisha.array.service.impl.UserIntegerArraySearchServiceImpl;
+import com.laisha.array.entity.CustomArray;
+import com.laisha.array.repository.CustomArraySpecification;
+import com.laisha.array.service.impl.CustomIntegerArraySearchServiceImpl;
 
 import java.util.OptionalLong;
 
-public class TotalSumEqualsSpecificationImpl implements UserArraySpecification {
+public class TotalSumEqualsSpecificationImpl implements CustomArraySpecification {
 
-    private static final UserIntegerArraySearchServiceImpl searchService =
-            UserIntegerArraySearchServiceImpl.getInstance();
+    private static final CustomIntegerArraySearchServiceImpl searchService =
+            CustomIntegerArraySearchServiceImpl.getInstance();
     private final long providedValue;
 
     public TotalSumEqualsSpecificationImpl(long providedValue) {
@@ -17,9 +17,9 @@ public class TotalSumEqualsSpecificationImpl implements UserArraySpecification {
     }
 
     @Override
-    public boolean specify(UserArray userArray) {
+    public boolean specify(CustomArray customArray) {
 
-        OptionalLong totalSum = searchService.calculateSumOfArrayElements(userArray);
+        OptionalLong totalSum = searchService.calculateSumOfArrayElements(customArray);
         if (totalSum.isEmpty()) {
             return false;
         }

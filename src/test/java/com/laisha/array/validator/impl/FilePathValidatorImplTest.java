@@ -11,12 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FilePathValidatorImplTest {
 
-    static FilePathValidatorImpl filePathValidator = FilePathValidatorImpl.getInstance();
+    static FilePathValidatorImpl validator = FilePathValidatorImpl.getInstance();
 
     @AfterAll
     static void tearDownClass() {
 
-        filePathValidator = null;
+        validator = null;
     }
 
     @ParameterizedTest
@@ -26,7 +26,7 @@ class FilePathValidatorImplTest {
             "data/test_empty_file.txt"})
     void validateFilePathPositiveTest(String filepath) {
 
-        boolean isValidFilePath = filePathValidator.validateFilePath(filepath);
+        boolean isValidFilePath = validator.validateFilePath(filepath);
         assertTrue(isValidFilePath);
     }
 
@@ -37,7 +37,7 @@ class FilePathValidatorImplTest {
             "data\\arrays.txt", " ", "\n  \t \r  "})
     void validateFilePathNegativeTest(String filepath) {
 
-        boolean isValidFilePath = filePathValidator.validateFilePath(filepath);
+        boolean isValidFilePath = validator.validateFilePath(filepath);
         assertFalse(isValidFilePath);
     }
 }
